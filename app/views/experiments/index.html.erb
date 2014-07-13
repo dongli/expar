@@ -7,14 +7,16 @@
         <th width="200">Title</th>
         <th width="200">Model</th>
         <th width="400">Comment</th>
+        <th width="200">Contact</th>
       </tr>
     </thead>
     <tbody>
       <% @experiments.each do |experiment| %>  
         <tr>
           <td><%= experiment.title %></td>
-          <td><%= experiment.author %></td>
+          <td><%= experiment.model %></td>
           <td><%= experiment.comment %></td>
+          <td><a href="mailto:<%= experiment.mail %>"><%= experiment.author %></a></td>
           <td><%= link_to 'Show', experiment_path(experiment) %></td>
           <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
           <td><%= link_to 'Delete', experiment_path(experiment),

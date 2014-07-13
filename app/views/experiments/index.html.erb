@@ -1,24 +1,28 @@
 <h1>All experiments</h1>
 
-<%= link_to 'New experiment', new_experiment_path %>
+<div class="row">
+  <table>
+    <thead>
+      <tr>
+        <th width="200">Title</th>
+        <th width="200">Model</th>
+        <th width="400">Comment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @experiments.each do |experiment| %>  
+        <tr>
+          <td><%= experiment.title %></td>
+          <td><%= experiment.author %></td>
+          <td><%= experiment.comment %></td>
+          <td><%= link_to 'Show', experiment_path(experiment) %></td>
+          <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
+          <td><%= link_to 'Delete', experiment_path(experiment),
+            method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Author</th>
-    <th>Comment</th>
-  </tr>
-  <% @experiments.each do |experiment| %>
-    <tr>
-      <td><%= experiment.title %></td>
-      <td><%= experiment.author %></td>
-      <td><%= experiment.comment %></td>
-      <td><%= link_to 'Show', experiment_path(experiment) %></td>
-      <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
-      <td><%= link_to 'Delete', experiment_path(experiment),
-        method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
-
-<%= link_to 'Back', controller: 'main' %>
+<%= link_to 'New experiment', new_experiment_path, class: "button radius" %>

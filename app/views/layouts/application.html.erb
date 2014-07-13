@@ -23,6 +23,8 @@
         <section class="top-bar-section">
           <ul class="right">
             <li class="divider"></li>
+            <li><%= link_to "Experiments", experiments_path %>
+            <li class="divider"></li>
             <li>
               <% if user_signed_in? %>
                 <%= link_to "Log out", destroy_user_session_path, method: :delete %>
@@ -34,7 +36,12 @@
         </section>
       </nav>
     </div>
-    <%= yield %>
+    <div class="row">
+      <div class="small-12 columns">
+        <%= yield %>
+      </div>
+    </div>
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>

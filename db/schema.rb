@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20140713082314) do
 
   create_table "experiments", force: true do |t|
     t.string   "title"
+    t.string   "model"
     t.string   "date"
     t.string   "author"
     t.string   "mail"

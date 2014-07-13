@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>ExperimentArchive</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <div id="user_nav">
-    <% if user_signed_in? %>
-      Logged in as <%= current_user.email %>. Not you?
-      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "log in", new_user_session_path %>
-    <% end %>
-  </div>
+    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  
-  <%= yield %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
 
-</body>
+  <body>
+    <div class="sticky">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><%= link_to "Experiment Archive", main_index_path %></h1>
+          </li>
+        </ul>
+
+        <section class="top-bar-section">
+          <ul class="right">
+            <li class="divider"></li>
+            <li>
+              <% if user_signed_in? %>
+                <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+              <% else %>
+                <%= link_to "Log in", new_user_session_path %>
+              <% end %>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+    <%= yield %>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>

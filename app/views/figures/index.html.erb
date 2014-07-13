@@ -3,20 +3,20 @@
 <%= link_to 'New figure', new_experiment_figure_path %>
 
 <table>
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Comment</th>
+  </tr>
+  <% @figures.each do |figure| %>
     <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Comment</th>
+      <td><%= figure.title %></td>
+      <td><%= link_to 'Show', experiment_figure_path(figure.experiment_id) %></td>
+      <td><%= link_to 'Edit', edit_experiment_figure_path(figure.experiment_id) %></td>
+      <td><%= link_to 'Delete', experiment_figure_path(figure.experiment_id),
+        method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
-    <% @figures.each do |figure| %>
-        <tr>
-            <td><%= figure.title %></td>
-            <td><%= link_to 'Show', experiment_figure_path(figure.experiment_id) %></td>
-            <td><%= link_to 'Edit', edit_experiment_figure_path(figure.experiment_id) %></td>
-            <td><%= link_to 'Delete', experiment_figure_path(figure.experiment_id),
-                method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-    <% end %>
+  <% end %>
 </table>
 
 <%= link_to 'Back', controller: 'main' %>

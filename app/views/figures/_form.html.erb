@@ -1,32 +1,32 @@
 <%= form_for :figure, url: experiment_figures_path,
-    html: { :multipart => true } do |f| %>
-    <% if @figure.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@figure.errors.count, "error") %> prohibited this figure from being saved:</h2>
-            <ul>
-            <% @figure.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-            </ul>
-        </div>
-    <% end %>
+  html: { :multipart => true } do |f| %>
+  <% if @figure.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@figure.errors.count, "error") %> prohibited this figure from being saved:</h2>
+      <ul>
+      <% @figure.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <p>
-        <%= f.label :title %><br>
-        <%= f.text_field :title %>
-    </p>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
 
-    <p>
-        <%= f.label :file %><br>
-        <%= f.file_field :file %>
-    </p>
+  <p>
+    <%= f.label :file %><br>
+    <%= f.file_field :file %>
+  </p>
 
-    <p>
-        <%= f.label :comment %><br>
-        <%= f.text_area :comment %>
-    </p>
-    
-    <p>
-        <%= f.submit %>
-    </p>
+  <p>
+    <%= f.label :comment %><br>
+    <%= f.text_area :comment %>
+  </p>
+  
+  <p>
+    <%= f.submit %>
+  </p>
 <% end %>

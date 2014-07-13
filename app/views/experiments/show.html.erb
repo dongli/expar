@@ -1,42 +1,42 @@
 <p>
-    <strong>Title:</strong>
-    <%= @experiment.title %>
+  <strong>Title:</strong>
+  <%= @experiment.title %>
 </p>
 
 <p>
-    <strong>Date:</strong>
-    <%= @experiment.date %>
+  <strong>Date:</strong>
+  <%= @experiment.date %>
 </p>
 
 <p>
-    <strong>Author:</strong>
-    <%= "#{@experiment.author} <#{@experiment.mail}>" %>
+  <strong>Author:</strong>
+  <%= "#{@experiment.author} <#{@experiment.mail}>" %>
 </p>
 
 <p>
-    <strong>Comment:</strong>
-    <%= @experiment.comment %>
+  <strong>Comment:</strong>
+  <%= @experiment.comment %>
 </p>
 
 <p>
-    <%= link_to 'Add new figure', new_experiment_figure_path(@experiment.id) %>
+  <%= link_to 'Add new figure', new_experiment_figure_path(@experiment.id) %>
 </p>
 
 <p>
-    <% @experiment.figures.each do |figure| %>
-        <strong><%= figure.title %></strong>
-        <%= link_to 'Edit',
-            edit_experiment_figure_path(experiment_id: figure.experiment_id,
-            id: figure.id) %>
-        <%= link_to 'Show', experiment_figure_path(experiment_id: figure.experiment_id,
-            id: figure.id) %>
-        <%= link_to 'Delete',
-            experiment_figure_path(experiment_id: figure.experiment_id,
-            id: figure.id),
-            method: :delete, data: { confirm: 'Are you sure?' } %>
-        <br>
-        <%= image_tag figure.file.url(:small) %><br>
-    <% end %>
+  <% @experiment.figures.each do |figure| %>
+    <strong><%= figure.title %></strong>
+    <%= link_to 'Edit',
+      edit_experiment_figure_path(experiment_id: figure.experiment_id,
+      id: figure.id) %>
+    <%= link_to 'Show', experiment_figure_path(experiment_id: figure.experiment_id,
+      id: figure.id) %>
+    <%= link_to 'Delete',
+      experiment_figure_path(experiment_id: figure.experiment_id,
+      id: figure.id),
+      method: :delete, data: { confirm: 'Are you sure?' } %>
+    <br>
+    <%= image_tag figure.file.url(:small) %><br>
+  <% end %>
 </p>
 
 <%= link_to 'Back', experiments_path %>

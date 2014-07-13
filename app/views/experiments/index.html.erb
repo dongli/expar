@@ -3,22 +3,22 @@
 <%= link_to 'New experiment', new_experiment_path %>
 
 <table>
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Comment</th>
+  </tr>
+  <% @experiments.each do |experiment| %>
     <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Comment</th>
+      <td><%= experiment.title %></td>
+      <td><%= experiment.author %></td>
+      <td><%= experiment.comment %></td>
+      <td><%= link_to 'Show', experiment_path(experiment) %></td>
+      <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
+      <td><%= link_to 'Delete', experiment_path(experiment),
+        method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
-    <% @experiments.each do |experiment| %>
-        <tr>
-            <td><%= experiment.title %></td>
-            <td><%= experiment.author %></td>
-            <td><%= experiment.comment %></td>
-            <td><%= link_to 'Show', experiment_path(experiment) %></td>
-            <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
-            <td><%= link_to 'Delete', experiment_path(experiment),
-                method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-    <% end %>
+  <% end %>
 </table>
 
 <%= link_to 'Back', controller: 'main' %>

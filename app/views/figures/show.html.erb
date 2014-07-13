@@ -1,0 +1,16 @@
+<p>
+    <strong>Title:</strong>
+    <%= @figure.title %>
+</p>
+
+<p>
+    <strong>File:</strong><br>
+    <%= image_tag @figure.file.url(:small) %>
+</p>
+
+<p>
+	<strong>Comment:</strong><br>
+	<%= @figure.comment %>
+</p>
+
+<%= link_to 'Back', experiment_path(id: @figure.experiment_id) %>

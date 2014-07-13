@@ -1,0 +1,51 @@
+class ExperimentsController < ApplicationController
+    def index
+        @experiments = Experiment.all
+    end
+
+    def new
+        @experiment = Experiment.new
+    end
+
+    def create
+        @experiment = Experiment.new(experiment_params)
+        @experiment.figures = []
+
+        if @experiment.save
+            redirect_to @experiment
+        else
+            render 'new'
+        end
+    end
+
+    def show
+        @experiment = Experiment.find(params[:id])
+    end
+
+    def edit
+        @experiment = Experiment.find(params[:id])
+    end
+
+    def update
+        @experiment = Experiment.find(params[:id])
+
+        if @experiment.update(experiment_params)
+            redirect_to @experiment
+        else
+            render 'edit'
+        end
+    end
+
+    def destroy
+        @experiment = Experiment.find(params[:id])
+        @experiment.destroy
+
+        redirect_to @experiment
+    end
+
+    private
+
+    def experiment_params
+        params.require(:experiment).permit(:title, :date, :author, :mail, :comment)
+    end
+end

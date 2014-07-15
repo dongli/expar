@@ -1,4 +1,4 @@
-<%= form_for :experiment, url: experiments_path do |f| %>
+<%= form_for @experiment do |f| %>
   <div class="row">
     <div class="small-12 medium-6 small-centered columns"><p>
       <% if @experiment.errors.any? %>
@@ -44,8 +44,12 @@
           <%= f.label :author, class: "right inline" %>
         </div>
         <div class="small-9 medium-9 columns">
-          <%= f.text_field :author,
-            value: "#{current_user.first_name} #{current_user.last_name}" %>
+          <% if @experiment.new_record? %>
+            <%= f.text_field :author,
+              value: "#{current_user.first_name} #{current_user.last_name}" %>
+          <% else %>
+            <%= f.text_field :author %>
+          <% end %>
         </div>
       </div>
       
@@ -54,7 +58,11 @@
           <%= f.label :mail, class: "right inline" %>
         </div>
         <div class="small-9 medium-9 columns">
-          <%= f.text_field :mail, value: "#{current_user.email}" %>
+          <% if @experiment.new_record? %>
+            <%= f.text_field :mail, value: "#{current_user.email}" %>
+          <% else %>
+            <%= f.text_field :mail %>
+          <% end %>
         </div>
       </div>
 

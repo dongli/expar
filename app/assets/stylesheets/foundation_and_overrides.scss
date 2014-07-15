@@ -45,7 +45,7 @@ $total-columns: 12;
 // $font-weight-bold: bold !default
 
 // We use these to control various global styles
-// $body-bg: #fff;
+$body-bg: #EBE6DC;
 // $body-font-color: #222;
 $body-font-family: "Times New Roman", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
@@ -61,10 +61,10 @@ $font-smoothing: antialiased;
 
 // We use these as default colors throughout
 $primary-color: #453a32;
-// $secondary-color: #e7e7e7;
-// $alert-color: #f04124;
-// $success-color: #43AC6A;
-// $warning-color: #f08a24;
+$secondary-color: #EA4B3D;
+$alert-color: #E5404A;
+$success-color: #2FAA42;
+$warning-color: #FDCB5B;
 // $info-color: #a0d3e8;
 
 // We use these to make sure border radius matches unless we want it different.
@@ -369,7 +369,7 @@ $button-lrg: rem-calc(9);
 // We use these to control button border styles.
 // $button-border-width: 0px;
 // $button-border-style: solid;
-// $button-bg: $primary-color;
+$button-bg: #52C96D;
 // $button-border-color: scale-color($bg, $lightness: $button-function-factor);
 
 // We use this to set the default radius used throughout the core.
@@ -1186,7 +1186,7 @@ $button-lrg: rem-calc(9);
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: #453a32;
+$topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin

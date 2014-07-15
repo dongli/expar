@@ -1,32 +1,51 @@
 <%= form_for :figure, url: experiment_figures_path,
   html: { :multipart => true } do |f| %>
-  <% if @figure.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@figure.errors.count, "error") %> prohibited this figure from being saved:</h2>
-      <ul>
-      <% @figure.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <div class="row">
+    <div class="small-12 medium-6 small-centered columns"><p>
+      <% if @figure.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@figure.errors.count, "error") %> prohibited this figure from being saved:</h2>
+          <ul>
+            <% @figure.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :title %>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.text_field :title %>
+        </div>
+      </div>
 
-  <p>
-    <%= f.label :file %><br>
-    <%= f.file_field :file %>
-  </p>
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :file %><br>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.file_field :file %>
+        </div>
+      </div>
 
-  <p>
-    <%= f.label :comment %><br>
-    <%= f.text_area :comment %>
-  </p>
-  
-  <p>
-    <%= f.submit %>
-  </p>
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :comment %><br>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.text_area :comment %>
+        </div>
+      </div>
+ 
+      <div class="row collapse">
+        <div class="small-12 small-offset-3 columns">
+          <%= f.submit 'Save', class: "button radius" %>
+          <%= link_to 'Back', experiments_path, class: "button radius" %>
+        </div>
+      </div>
+    </p></div>
+  </div>
 <% end %>

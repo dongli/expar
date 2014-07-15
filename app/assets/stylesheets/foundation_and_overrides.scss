@@ -35,7 +35,7 @@
 // $include-html-block-grid-classes: $include-html-classes; 
 // $include-xl-html-grid-classes: false;
 
-$row-width: rem-calc(1000);
+// $row-width: rem-calc(1000);
 $total-columns: 12;
 
 // Global
@@ -60,7 +60,7 @@ $font-smoothing: antialiased;
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
+$primary-color: #453a32;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -343,10 +343,10 @@ $column-gutter: rem-calc(60px);
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to build padding for buttons.
-// $button-tny: rem-calc(10);
-// $button-sml: rem-calc(14);
-// $button-med: rem-calc(16);
-// $button-lrg: rem-calc(18);
+$button-tny: rem-calc(5);
+$button-sml: rem-calc(7);
+$button-med: rem-calc(8);
+$button-lrg: rem-calc(9);
 
 // We use this to control the display property.
 // $button-display: inline-block;

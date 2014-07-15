@@ -1,16 +1,29 @@
-<p>
-  <strong>Title:</strong>
+<h1>
   <%= @figure.title %>
-</p>
+</h1>
+
+<div class="row">
+  <div class="small-12 media-8 small-centered columns"><p>
+    <figure>
+      <%= image_tag @figure.file.url(:small) %>
+      <figcaption>
+        <%= @figure.comment %>
+      </figcaption>
+    </figure>
+  </p></div>
+</div>
 
 <p>
-  <strong>File:</strong><br>
-  <%= image_tag @figure.file.url(:small) %>
+  <%= link_to 'Back',
+    experiment_path(id: @figure.experiment_id), class: "button radius" %>
+  <%= link_to 'Edit',
+    edit_experiment_figure_path(experiment_id: @figure.experiment_id,
+                                id: @figure.id), class: "button radius" %>
+  <%= link_to 'Show',
+    experiment_figure_path(experiment_id: @figure.experiment_id,
+                           id: @figure.id), class: "button radius" %>
+  <%= link_to 'Delete',
+    experiment_figure_path(experiment_id: @figure.experiment_id,
+                           id: @figure.id), class: "button radius",
+    method: :delete, data: { confirm: 'Are you sure to delete this figure?' } %>
 </p>
-
-<p>
-	<strong>Comment:</strong><br>
-	<%= @figure.comment %>
-</p>
-
-<%= link_to 'Back', experiment_path(id: @figure.experiment_id) %>

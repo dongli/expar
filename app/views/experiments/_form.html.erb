@@ -1,46 +1,74 @@
 <%= form_for :experiment, url: experiments_path do |f| %>
-  <% if @experiment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@experiment.errors.count, "error") %> prohibited this experiment from being saved:</h2>
-      <ul>
-      <% @experiment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="row collapse">
-    <div class="small-3 columns"><%= f.label :title, class: "right inline" %></div>
-    <div class="small-9 columns"><%= f.text_field :title %></div>
-  </div>
-
-  <div class="row collapse">
-    <div class="small-3 columns"><%= f.label :model, class: "right inline" %></div>
-    <div class="small-9 columns"><%= f.text_field :model %></div>
-  </div>
-
-  <div class="row collapse">
-    <div class="small-3 columns"><%= f.label :date, class: "right inline" %></div>
-    <div class="small-9 columns"><%= f.text_field :date %></div>
-  </div>
-  
-  <div class="row collapse">
-    <div class="small-3 columns"><%= f.label :author, class: "right inline" %></div>
-    <div class="small-9 columns"><%= f.text_field :author %></div>
-  </div>
-  
-  <div class="row collapse">
-    <div class="small-3 columns"><%= f.label :mail, class: "right inline" %></div>
-    <div class="small-9 columns"><%= f.text_field :mail %></div>
-  </div>
-
-  <div class="row collapse">
-    <div class="small-3 columns"><%= f.label :comment, class: "right inline" %></div>
-    <div class="small-9 columns"><%= f.text_area :comment %></div>
-  </div>
-
   <div class="row">
-    <div class="small-9 small-offset-3 columns"><%= f.submit 'Save experiment', class: "button radius" %></div>
+    <div class="small-12 medium-6 small-centered columns"><p>
+      <% if @experiment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@experiment.errors.count, "error") %> prohibited this experiment from being saved:</h2>
+          <ul>
+          <% @experiment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :title, class: "right inline" %>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.text_field :title %>
+        </div>
+      </div>
+
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :model, class: "right inline" %>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.text_field :model %>
+        </div>
+      </div>
+
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :date, class: "right inline" %>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.text_field :date %>
+        </div>
+      </div>
+      
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :author, class: "right inline" %>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.text_field :author,
+            value: "#{current_user.first_name} #{current_user.last_name}" %>
+        </div>
+      </div>
+      
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns">
+          <%= f.label :mail, class: "right inline" %>
+        </div>
+        <div class="small-9 medium-9 columns">
+          <%= f.text_field :mail, value: "#{current_user.email}" %>
+        </div>
+      </div>
+
+      <div class="row collapse">
+        <div class="small-1 medium-3 columns"><%= f.label :comment, class: "right inline" %></div>
+        <div class="small-9 medium-9 columns"><%= f.text_area :comment %></div>
+      </div>
+
+      <div class="row collapse">
+        <div class="small-12 small-offset-3 columns">
+          <%= f.submit 'Save', class: "button radius" %>
+          <%= link_to 'Back', experiments_path, class: "button radius" %>
+        </div>
+      </div>
+    </p></div>
   </div>
 <% end %>

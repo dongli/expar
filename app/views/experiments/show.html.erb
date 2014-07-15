@@ -1,42 +1,45 @@
-<p>
-  <strong>Title:</strong>
-  <%= @experiment.title %>
-</p>
+<div class="row"><p>
+  <div class="small-12 medium-6 small-centered columns">
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Title</strong></td>
+          <td><%= @experiment.title %>
+        </tr>
+        <tr>
+          <td><strong>Date</strong></td>
+          <td><%= @experiment.date %>
+        </tr>
+        <tr>
+          <td><strong>Author</strong></td>
+          <td><a href="mailto:<%= @experiment.mail %>"><%= @experiment.author %></a></td>
+        </tr>
+        <tr>
+          <td><strong>Comment</strong></td>
+          <td><%= @experiment.comment %></td>
+        </tr>
+      </tbody>
+    </table>
 
-<p>
-  <strong>Date:</strong>
-  <%= @experiment.date %>
-</p>
+    <p>
+      <%= link_to 'Back', experiments_path, class: "button radius" %>
+      <%= link_to 'Edit', edit_experiment_path(@experiment),
+        class: "button radius" %>
+      <%= link_to 'Delete', experiment_path(@experiment),
+        class: "button radius",
+        method: :delete, data: { confirm: 'Are you sure to delete this experiment?' } %>
+      <%= link_to 'Add new figure', new_experiment_figure_path(@experiment.id),
+        class: "button radius" %>
+    </p>
+    
+    <p>
+      <% @experiment.figures.each do |f| %>
+        <%= link_to "#{f.title}",
+          experiment_figure_path(experiment_id: f.experiment_id,
+                                 id: f.id) %><br>
+        <%= image_tag f.file.url(:small) %><br>
+      <% end %>
+    </p>
+  </div>
+</p></div>
 
-<p>
-  <strong>Author:</strong>
-  <%= "#{@experiment.author} <#{@experiment.mail}>" %>
-</p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @experiment.comment %>
-</p>
-
-<p>
-  <%= link_to 'Add new figure', new_experiment_figure_path(@experiment.id) %>
-</p>
-
-<p>
-  <% @experiment.figures.each do |figure| %>
-    <strong><%= figure.title %></strong>
-    <%= link_to 'Edit',
-      edit_experiment_figure_path(experiment_id: figure.experiment_id,
-      id: figure.id) %>
-    <%= link_to 'Show', experiment_figure_path(experiment_id: figure.experiment_id,
-      id: figure.id) %>
-    <%= link_to 'Delete',
-      experiment_figure_path(experiment_id: figure.experiment_id,
-      id: figure.id),
-      method: :delete, data: { confirm: 'Are you sure?' } %>
-    <br>
-    <%= image_tag figure.file.url(:small) %><br>
-  <% end %>
-</p>
-
-<%= link_to 'Back', experiments_path %>

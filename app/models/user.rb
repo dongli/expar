@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  ROLES = %i[admin moderator author guest]
+  enum role: [ :admin, :author, :guest ]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

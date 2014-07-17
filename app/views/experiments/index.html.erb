@@ -21,4 +21,6 @@
   </table>
 </div>
 
-<%= link_to 'New experiment', new_experiment_path, class: "button radius" %>
+<% if can? :create, Experiment %>
+  <%= link_to 'New experiment', new_experiment_path, class: "button radius" %>
+<% end %>

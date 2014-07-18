@@ -1,82 +1,93 @@
-<%= form_for @experiment do |f| %>
-  <div class="row">
-    <div class="small-12 medium-6 small-centered columns"><p>
-      <% if @experiment.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@experiment.errors.count, "error") %> prohibited this experiment from being saved:</h2>
-          <ul>
-          <% @experiment.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
+<div class="row">
+  <div class="small-12 medium-6 small-centered columns">
+    <div class="row collapse">
+      <div class="small-12 small-offset-3 columns">
+        <h1>
+          <% if @experiment.id == nil %>
+            Create an experiment
+          <% else %>
+            Update the experiment
           <% end %>
-          </ul>
+        </h1>
+      </div>
+    </div>
+    <p>
+      <%= form_for @experiment do |f| %>
+        <% if @experiment.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@experiment.errors.count, "error") %>
+              prohibited this experiment from being saved:</h2>
+            <ul>
+              <% @experiment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :title, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.text_field :title %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :model, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.text_field :model %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :date, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.text_field :date %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :author, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <% if @experiment.new_record? %>
+              <%= f.text_field :author,
+              value: "#{current_user.first_name} #{current_user.last_name}" %>
+            <% else %>
+              <%= f.text_field :author %>
+            <% end %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :mail, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <% if @experiment.new_record? %>
+              <%= f.text_field :mail, value: "#{current_user.email}" %>
+            <% else %>
+              <%= f.text_field :mail %>
+            <% end %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns"><%= f.label :comment, class: "right inline" %></div>
+          <div class="small-9 medium-9 columns"><%= f.text_area :comment %></div>
+        </div>
+        <div class="row collapse">
+          <div class="small-12 small-offset-3 columns">
+            <% if @experiment.id == nil %>
+              <a href="<%= experiments_path %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
+            <% else %>
+              <a href="<%= experiment_path(@experiment) %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
+            <% end %>
+            <%= f.submit 'Save', class: "button radius" %>
+          </div>
         </div>
       <% end %>
-
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :title, class: "right inline" %>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <%= f.text_field :title %>
-        </div>
-      </div>
-
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :model, class: "right inline" %>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <%= f.text_field :model %>
-        </div>
-      </div>
-
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :date, class: "right inline" %>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <%= f.text_field :date %>
-        </div>
-      </div>
-      
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :author, class: "right inline" %>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <% if @experiment.new_record? %>
-            <%= f.text_field :author,
-              value: "#{current_user.first_name} #{current_user.last_name}" %>
-          <% else %>
-            <%= f.text_field :author %>
-          <% end %>
-        </div>
-      </div>
-      
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :mail, class: "right inline" %>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <% if @experiment.new_record? %>
-            <%= f.text_field :mail, value: "#{current_user.email}" %>
-          <% else %>
-            <%= f.text_field :mail %>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns"><%= f.label :comment, class: "right inline" %></div>
-        <div class="small-9 medium-9 columns"><%= f.text_area :comment %></div>
-      </div>
-
-      <div class="row collapse">
-        <div class="small-12 small-offset-3 columns">
-          <%= f.submit 'Save', class: "button radius" %>
-          <%= link_to 'Back', experiments_path, class: "button radius" %>
-        </div>
-      </div>
-    </p></div>
+    </p>
   </div>
-<% end %>
+</div>

@@ -1,23 +1,7 @@
-<div class="row"><p>
+<div class="row">
   <div class="small-12 medium-12 small-centered columns">
-    <table>
-      <thead>
-        <tr>
-          <th width="200">Name</th>
-          <th width="200">Mail</th>
-          <th width="200">Join Date</th>
-          <th width="200">Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% User.all.each do |u| %>
-          <tr>
-            <td><%= "#{u.first_name} #{u.last_name}" %></td>
-            <td><%= u.email %></td>
-            <td><%= u.created_at %></td>
-            <td><%= u.role %></td>
-          </tr>
-        <% end %>
-      </tbody>
+    <p>
+      <%= link_to "Manage users", users_path, class: "button radius" %>
+    </p>
   </div>
-</p></div>
+</div>

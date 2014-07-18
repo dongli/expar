@@ -1,51 +1,61 @@
-<%= form_for :figure, url: experiment_figures_path,
+<div class="row">
+  <div class="small-12 medium-6 small-centered columns"><p>
+      <%= form_for :figure, url: experiment_figures_path,
   html: { :multipart => true } do |f| %>
-  <div class="row">
-    <div class="small-12 medium-6 small-centered columns"><p>
-      <% if @figure.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@figure.errors.count, "error") %> prohibited this figure from being saved:</h2>
-          <ul>
-            <% @figure.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
+        <div class="row collapse">
+          <div class="small-12 small-offset-3 columns">
+            <h1>
+              <% if @figure.id == nil %>
+                Create a figure
+              <% else %>
+                Update the figure
+              <% end %>
+            </h1>
+          </div>
+        </div>
+        <% if @figure.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@figure.errors.count, "error") %>
+              prohibited this figure from being saved:</h2>
+            <ul>
+              <% @figure.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :title, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.text_field :title %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :file, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.file_field :file %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :comment, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.text_area :comment %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-12 small-offset-3 columns">
+            <%= link_to :back, class: "button radius" do %>
+              <i class="fa fa-arrow-left"></i>
             <% end %>
-          </ul>
+            <%= f.submit 'Save', class: "button radius" %>
+          </div>
         </div>
       <% end %>
-
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :title %>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <%= f.text_field :title %>
-        </div>
-      </div>
-
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :file %><br>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <%= f.file_field :file %>
-        </div>
-      </div>
-
-      <div class="row collapse">
-        <div class="small-1 medium-3 columns">
-          <%= f.label :comment %><br>
-        </div>
-        <div class="small-9 medium-9 columns">
-          <%= f.text_area :comment %>
-        </div>
-      </div>
- 
-      <div class="row collapse">
-        <div class="small-12 small-offset-3 columns">
-          <%= f.submit 'Save', class: "button radius" %>
-          <%= link_to 'Back', experiments_path, class: "button radius" %>
-        </div>
-      </div>
     </p></div>
-  </div>
-<% end %>
+</div>

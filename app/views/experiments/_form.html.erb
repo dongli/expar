@@ -84,7 +84,9 @@
             <% else %>
               <a href="<%= experiment_path(@experiment) %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
             <% end %>
-            <%= f.submit 'Save', class: "button radius" %>
+            <button type="submit" class="button radius">
+              <%= fa_icon "save" %>
+            </button>
           </div>
         </div>
       <% end %>

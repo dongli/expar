@@ -63,13 +63,13 @@
         </div>
         <div class="row collapse">
           <div class="small-1 medium-3 columns">
-            <%= f.label :mail, class: "right inline" %>
+            <%= f.label :email, class: "right inline" %>
           </div>
           <div class="small-9 medium-9 columns">
             <% if @experiment.new_record? %>
-              <%= f.text_field :mail, value: "#{current_user.email}" %>
+              <%= f.text_field :email, value: "#{current_user.email}" %>
             <% else %>
-              <%= f.text_field :mail %>
+              <%= f.text_field :email %>
             <% end %>
           </div>
         </div>

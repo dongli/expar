@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="small-12 medium-8 small-centered columns">
+  <div class="small-12 small-centered columns">
     <p>
       <table>
         <thead>
@@ -16,7 +16,7 @@
               <td><%= link_to "#{e.title}", experiment_path(e) %></td>
               <td><%= e.model %></td>
               <td><%= e.comment %></td>
-              <td><a href="mailto:<%= e.mail %>"><%= e.author %></a></td>
+              <td><a href="mailto:<%= e.email %>"><%= e.author %></a></td>
             </tr>
           <% end %>
         </tbody>

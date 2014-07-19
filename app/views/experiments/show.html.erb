@@ -14,7 +14,7 @@
           </tr>
           <tr>
             <td class="key"><strong>Author</strong></td>
-            <td class="value"><a href="mailto:<%= @experiment.mail %>"><%= @experiment.author %></a></td>
+            <td class="value"><a href="mailto:<%= @experiment.email %>"><%= @experiment.author %></a></td>
           </tr>
           <tr>
             <td><strong>Comment</strong></td>
@@ -30,7 +30,7 @@
       <a href="<%= edit_experiment_path(@experiment) %>", class="button radius">
         <i class="fa fa-edit"></i>
       </a>
-      <a href="<%= new_experiment_figure_path(@experiment.id) %>", class="button radius">
+      <a href="<%= new_experiment_diag_path(@experiment.id) %>", class="button radius">
         <i class="fa fa-plus-square"></i>
       </a>
       <%= link_to experiment_path(@experiment),
@@ -39,12 +39,10 @@
         <i class="fa fa-trash-o"></i>
       <% end %>
     </p>
+    <h1>Diagnostics</h1>
     <p>
-      <% @experiment.figures.each do |f| %>
-        <%= link_to "#{f.title}",
-          experiment_figure_path(experiment_id: f.experiment_id,
-                                 id: f.id) %><br>
-        <%= image_tag f.file.url(:small) %><br>
+      <% @experiment.diags.each do |d| %>
+        <%= link_to "#{d.category.upcase}", diag_path(d) %><br>
       <% end %>
     </p>
   </div>

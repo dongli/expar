@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="small-12 small-centered columns">
+    <h1><%= @diag.category.upcase %></h1>
+    <p>
+      <%= @diag.figures.size %>
+      <% @diag.figures.each do |f| %>
+        <%= link_to "#{f.title}",
+          figure_path(f) %><br>
+        <%= image_tag f.file.url(:small) %><br>
+      <% end %>
+    </p>
+    <p>
+      <a href="<%= experiment_path(@diag.experiment_id) %>", class="button radius">
+        <i class="fa fa-arrow-left"></i>
+      </a>
+      <a href="<%= edit_diag_path(@diag) %>", class="button radius">
+        <i class="fa fa-edit"></i>
+      </a>
+      <a href="<%= new_diag_figure_path(@diag) %>", class="button radius">
+        <i class="fa fa-plus-square"></i>
+      </a>
+      <%= link_to diag_path(experiment_id: @diag.experiment_id, id: @diag.id),
+        class: "button radius alert",
+        method: :delete, data: { confirm: 'Are you sure to delete this diagnostics?' } do %>
+        <i class="fa fa-trash-o"></i>
+      <% end %>
+    </p>
+  </div>
+</div>

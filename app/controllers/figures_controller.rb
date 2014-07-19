@@ -9,11 +9,11 @@ class FiguresController < ApplicationController
 
   def create
     @figure = Figure.new(figure_params)
-    @experiment = Experiment.find(params[:experiment_id])
-    @experiment.figures.push @figure
+    @diag = Diag.find(params[:diag_id])
+    @diag.figures.push @figure
 
     if @figure.save
-      redirect_to @experiment
+      redirect_to diag_path(@diag)
     else
       render 'new'
     end
@@ -29,10 +29,9 @@ class FiguresController < ApplicationController
 
   def update
     @figure = Figure.find(params[:id])
-    @experiment = Experiment.find(params[:experiment_id])
 
     if @figure.update(figure_params)
-      redirect_to @experiment
+      redirect_to @figure
     else
       render 'edit'
     end
@@ -40,16 +39,16 @@ class FiguresController < ApplicationController
 
   def destroy
     @figure = Figure.find(params[:id])
-    @experiment = Experiment.find(params[:experiment_id])
+    @diag = Diag.find(params[:diag_id])
     @figure.destroy
 
-    redirect_to @experiment
+    redirect_to @diag
   end
 
   private
 
   def figure_params
-    params.require(:figure).permit(:experiment_id,
+    params.require(:figure).permit(:diag_id,
                                    :title,
                                    :file,
                                    :comment)

@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :experiments do
-    resources :figures
+  resources :experiments, shallow: true do
+    resources :diags do
+      resources :figures
+    end
   end
 end

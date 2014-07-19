@@ -5,7 +5,7 @@ class CreateExperiments < ActiveRecord::Migration
       t.string :model
       t.string :date
       t.string :author
-      t.string :mail
+      t.string :email
       t.text :comment
       t.timestamps
     end

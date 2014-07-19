@@ -11,7 +11,7 @@ class ExperimentsController < ApplicationController
 
   def create
     @experiment = Experiment.new(experiment_params)
-    @experiment.figures = []
+    @experiment.diags = []
 
     if @experiment.save
       redirect_to @experiment
@@ -52,7 +52,7 @@ class ExperimentsController < ApplicationController
                                        :model,
                                        :date,
                                        :author,
-                                       :mail,
+                                       :email,
                                        :comment)
   end
 end

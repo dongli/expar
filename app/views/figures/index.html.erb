@@ -1,7 +1,5 @@
 <h1>All figures</h1>
-
-<%= link_to 'New figure', new_experiment_figure_path %>
-
+<%= link_to 'New figure', new_diag_figure_path %>
 <table>
   <tr>
     <th>Title</th>
@@ -11,12 +9,11 @@
   <% @figures.each do |figure| %>
     <tr>
       <td><%= figure.title %></td>
-      <td><%= link_to 'Show', experiment_figure_path(figure.experiment_id) %></td>
-      <td><%= link_to 'Edit', edit_experiment_figure_path(figure.experiment_id) %></td>
-      <td><%= link_to 'Delete', experiment_figure_path(figure.experiment_id),
+      <td><%= link_to 'Show', figure_path(figure) %></td>
+      <td><%= link_to 'Edit', edit_figure_path(figure) %></td>
+      <td><%= link_to 'Delete', figure_path(figure),
         method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
-
 <%= link_to 'Back', controller: 'main' %>

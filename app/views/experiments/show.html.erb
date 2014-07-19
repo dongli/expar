@@ -1,49 +1,59 @@
 <div class="row">
   <div class="small-12 medium-8 small-centered columns">
-    <h1>Experiment</h1>
-    <p>
-      <table class="profile">
-        <tbody>
-          <tr>
-            <td class="key"><strong>Title</strong></td>
-            <td class="value"><%= @experiment.title %></td>
-          </tr>
-          <tr>
-            <td class="key"><strong>Date</strong></td>
-            <td class="value"><%= @experiment.date %></td>
-          </tr>
-          <tr>
-            <td class="key"><strong>Author</strong></td>
-            <td class="value"><a href="mailto:<%= @experiment.email %>"><%= @experiment.author %></a></td>
-          </tr>
-          <tr>
-            <td><strong>Comment</strong></td>
-            <td><%= @experiment.comment %></td>
-          </tr>
-        </tbody>
-      </table>
-    </p>
-    <p>
-      <a href="<%= experiments_path %>", class="button radius">
-        <i class="fa fa-arrow-left"></i>
-      </a>
-      <a href="<%= edit_experiment_path(@experiment) %>", class="button radius">
-        <i class="fa fa-edit"></i>
-      </a>
-      <a href="<%= new_experiment_diag_path(@experiment.id) %>", class="button radius">
-        <i class="fa fa-plus-square"></i>
-      </a>
-      <%= link_to experiment_path(@experiment),
+    <div class="panel">
+      <h1>Experiment</h1>
+      <p>
+        <table class="profile">
+          <tbody>
+            <tr>
+              <td class="key"><strong>Title</strong></td>
+              <td class="value"><%= @experiment.title %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Date</strong></td>
+              <td class="value"><%= @experiment.date %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Author</strong></td>
+              <td class="value"><a href="mailto:<%= @experiment.email %>"><%= @experiment.author %></a></td>
+            </tr>
+            <tr>
+              <td><strong>Comment</strong></td>
+              <td><%= @experiment.comment %></td>
+            </tr>
+          </tbody>
+        </table>
+      </p>
+      <p>
+        <a href="<%= experiments_path %>", class="button radius">
+          <i class="fa fa-arrow-left"></i>
+        </a>
+        <a href="<%= edit_experiment_path(@experiment) %>", class="button radius">
+          <i class="fa fa-edit"></i>
+        </a>
+        <a href="<%= new_experiment_diag_path(@experiment.id) %>", class="button radius">
+          <i class="fa fa-plus-square"></i>
+        </a>
+        <%= link_to experiment_path(@experiment),
         class: "button radius alert",
         method: :delete, data: { confirm: 'Are you sure to delete this experiment?' } do %>
-        <i class="fa fa-trash-o"></i>
-      <% end %>
-    </p>
-    <h1>Diagnostics</h1>
-    <p>
-      <% @experiment.diags.each do |d| %>
-        <%= link_to "#{d.category.upcase}", diag_path(d) %><br>
-      <% end %>
-    </p>
+          <i class="fa fa-trash-o"></i>
+        <% end %>
+      </p>
+    </div>
+    <div class="panel">
+      <h1>Diagnostics</h1>
+      <p>
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          <% @experiment.diags.each do |d| %>
+            <li>
+              <div class="panel diag">
+                <%= link_to "#{d.category.upcase}", diag_path(d) %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    </div>
   </div>
 </div>

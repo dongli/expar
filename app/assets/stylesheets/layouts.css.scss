@@ -35,3 +35,16 @@ table.profile td.value {
 figcaption {
 	margin: 1em;
 }
+
+div.panel {
+	margin: 1em;
+}
+
+div.panel.diag {
+	text-align: center;
+	background: scale-color(#EA4B3D, $lightness: 25%);
+}
+
+div.panel.diag:hover {
+	background: #EA4B3D;
+}

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="small-12 medium-8 small-centered columns">
+  <div class="small-12 small-centered columns">
     <div class="panel">
       <h1>Experiment</h1>
       <p>
@@ -28,22 +28,20 @@
         <a href="<%= experiments_path %>", class="button radius">
           <i class="fa fa-arrow-left"></i>
         </a>
-        <% if can? :create, Diag %>
-          <a href="<%= new_experiment_diag_path(@experiment.id) %>", class="button radius">
-            <i class="fa fa-plus-square"></i>
-          </a>
-        <% end %>
-        <% if @experiment.created_by_user == current_user.id or current_user.admin? %>
-          <% if can? :update, Experiment %>
-            <a href="<%= edit_experiment_path(@experiment) %>", class="button radius">
-              <i class="fa fa-edit"></i>
-            </a>
-          <% end %>
-          <% if can? :destroy, Experiment %>
-            <%= link_to experiment_path(@experiment),
-        class: "button radius alert",
-        method: :delete, data: { confirm: 'Are you sure to delete this experiment?' } do %>
-              <i class="fa fa-trash-o"></i>
+        <% if user_signed_in? %>
+          <% if @experiment.created_by_user == current_user.id or current_user.admin? %>
+            <% if can? :update, Experiment %>
+              <a href="<%= edit_experiment_path(@experiment) %>", class="button radius">
+                <i class="fa fa-edit"></i>
+              </a>
+            <% end %>
+            <% if can? :destroy, Experiment %>
+              <%= link_to experiment_path(@experiment),
+                class: "button radius alert",
+                method: :delete,
+                data: { confirm: 'Are you sure to delete this experiment?' } do %>
+                <i class="fa fa-trash-o"></i>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
@@ -52,6 +50,11 @@
     <div class="panel">
       <h1>Diagnostics</h1>
       <p>
+        <% if can? :create, Diag %>
+          <a href="<%= new_experiment_diag_path(@experiment.id) %>", class="button radius">
+            <i class="fa fa-plus-square"></i>
+          </a>
+        <% end %>
         <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
           <% @experiment.diags.each do |d| %>
             <li>

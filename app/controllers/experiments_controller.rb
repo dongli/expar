@@ -11,6 +11,7 @@ class ExperimentsController < ApplicationController
 
   def create
     @experiment = Experiment.new(experiment_params)
+    @experiment.created_by_user = current_user.id
     @experiment.diags = []
 
     if @experiment.save
@@ -53,6 +54,7 @@ class ExperimentsController < ApplicationController
                                        :date,
                                        :author,
                                        :email,
+                                       :created_by_user,
                                        :comment)
   end
 end

@@ -5,6 +5,7 @@ class CreateDiags < ActiveRecord::Migration
       t.integer :category
       t.string :author
       t.string :email
+      t.integer :created_by_user
       t.string :comment
       t.timestamps
     end

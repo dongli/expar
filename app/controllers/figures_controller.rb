@@ -9,6 +9,7 @@ class FiguresController < ApplicationController
 
   def create
     @figure = Figure.new(figure_params)
+    @figure.created_by_user = current_user.id
     @diag = Diag.find(params[:diag_id])
     @diag.figures.push @figure
 
@@ -51,6 +52,7 @@ class FiguresController < ApplicationController
     params.require(:figure).permit(:diag_id,
                                    :title,
                                    :file,
+                                   :created_by_user,
                                    :comment)
   end
 end

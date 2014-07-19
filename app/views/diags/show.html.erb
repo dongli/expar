@@ -20,16 +20,22 @@
         <a href="<%= experiment_path(@diag.experiment_id) %>", class="button radius">
           <i class="fa fa-arrow-left"></i>
         </a>
-        <a href="<%= edit_diag_path(@diag) %>", class="button radius">
-          <i class="fa fa-edit"></i>
-        </a>
         <a href="<%= new_diag_figure_path(@diag) %>", class="button radius">
           <i class="fa fa-plus-square"></i>
         </a>
-        <%= link_to diag_path(experiment_id: @diag.experiment_id, id: @diag.id),
+        <% if @diag.created_by_user == current_user.id or current_user.admin?  %>
+          <% if can? :update, Diag %>
+            <a href="<%= edit_diag_path(@diag) %>", class="button radius">
+              <i class="fa fa-edit"></i>
+            </a>
+          <% end %>
+          <% if can? :destroy, Diag %>
+            <%= link_to diag_path(experiment_id: @diag.experiment_id, id: @diag.id),
         class: "button radius alert",
         method: :delete, data: { confirm: 'Are you sure to delete this diagnostics?' } do %>
-          <i class="fa fa-trash-o"></i>
+              <i class="fa fa-trash-o"></i>
+            <% end %>
+          <% end %>
         <% end %>
       </p>
     </div>

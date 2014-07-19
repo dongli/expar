@@ -28,16 +28,24 @@
         <a href="<%= experiments_path %>", class="button radius">
           <i class="fa fa-arrow-left"></i>
         </a>
-        <a href="<%= edit_experiment_path(@experiment) %>", class="button radius">
-          <i class="fa fa-edit"></i>
-        </a>
-        <a href="<%= new_experiment_diag_path(@experiment.id) %>", class="button radius">
-          <i class="fa fa-plus-square"></i>
-        </a>
-        <%= link_to experiment_path(@experiment),
+        <% if can? :create, Diag %>
+          <a href="<%= new_experiment_diag_path(@experiment.id) %>", class="button radius">
+            <i class="fa fa-plus-square"></i>
+          </a>
+        <% end %>
+        <% if @experiment.created_by_user == current_user.id or current_user.admin? %>
+          <% if can? :update, Experiment %>
+            <a href="<%= edit_experiment_path(@experiment) %>", class="button radius">
+              <i class="fa fa-edit"></i>
+            </a>
+          <% end %>
+          <% if can? :destroy, Experiment %>
+            <%= link_to experiment_path(@experiment),
         class: "button radius alert",
         method: :delete, data: { confirm: 'Are you sure to delete this experiment?' } do %>
-          <i class="fa fa-trash-o"></i>
+              <i class="fa fa-trash-o"></i>
+            <% end %>
+          <% end %>
         <% end %>
       </p>
     </div>

@@ -5,6 +5,7 @@ class CreateFigures < ActiveRecord::Migration
       t.string :title
       t.attachment :file
       t.text :comment
+      t.integer :created_by_user
       t.timestamps
     end
   end

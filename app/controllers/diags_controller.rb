@@ -1,4 +1,6 @@
 class DiagsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :show]
+
   def index
     @diags = Diag.all
   end
@@ -9,6 +11,7 @@ class DiagsController < ApplicationController
 
   def create
     @diag = Diag.new(diag_params)
+    @diag.created_by_user = current_user.id
     @diag.figures = []
     @experiment = Experiment.find(params[:experiment_id])
     @experiment.diags.push @diag
@@ -53,6 +56,7 @@ class DiagsController < ApplicationController
                                  :category,
                                  :author,
                                  :email,
+                                 :created_by_user,
                                  :comment)
   end
 end

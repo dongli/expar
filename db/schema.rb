@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20140718125911) do
     t.integer  "category"
     t.string   "author"
     t.string   "email"
+    t.integer  "created_by_user"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20140718125911) do
     t.string   "date"
     t.string   "author"
     t.string   "email"
+    t.integer  "created_by_user"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -42,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140718125911) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.text     "comment"
+    t.integer  "created_by_user"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

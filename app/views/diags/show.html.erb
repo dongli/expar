@@ -4,24 +4,32 @@
       <h1><%= @diag.category.upcase %> diagnostics</h1>
       <p>
         Created at <%= @diag.created_at %> by
-        <a href="mailto:<%= @diag.email %>"><%= @diag.author %></a><br>
-        <a href="<%= experiment_path(@diag.experiment_id) %>", class="button radius">
-          <i class="fa fa-arrow-left"></i>
-        </a>
+        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Send email to this guy.">
+          <a href="mailto:<%= @diag.email %>"><%= @diag.author %></a><br>
+        </span>
+        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Back to the experiment.">
+          <a href="<%= experiment_path(@diag.experiment_id) %>", class="button radius">
+            <i class="fa fa-arrow-left"></i>
+          </a>
+        </span>
         <% if user_signed_in? %>
           <% if @diag.created_by_user == current_user.id or current_user.admin?  %>
             <% if can? :update, Diag %>
-              <a href="<%= edit_diag_path(@diag) %>", class="button radius">
-                <i class="fa fa-edit"></i>
-              </a>
+              <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Edit diagnostics information.">
+                <a href="<%= edit_diag_path(@diag) %>", class="button radius">
+                  <i class="fa fa-edit"></i>
+                </a>
+              </span>
             <% end %>
             <% if can? :destroy, Diag %>
-              <%= link_to diag_path(experiment_id: @diag.experiment_id, id: @diag.id),
-                class: "button radius alert",
-                method: :delete,
-                data: { confirm: 'Are you sure to delete this diagnostics?' } do %>
-                <i class="fa fa-trash-o"></i>
-              <% end %>
+              <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Delete this diagnostics. Be careful!">
+                <%= link_to diag_path(experiment_id: @diag.experiment_id, id: @diag.id),
+                  class: "button radius alert",
+                  method: :delete,
+                  data: { confirm: 'Are you sure to delete this diagnostics?' } do %>
+                  <i class="fa fa-trash-o"></i>
+                <% end %>
+              </span>
             <% end %>
           <% end %>
         <% end %>
@@ -30,10 +38,14 @@
     <div class="panel">
       <h1>Figures</h1>
       <p>
-        <a href="<%= new_diag_figure_path(@diag) %>", class="button radius">
-          <i class="fa fa-plus-square"></i>
-        </a>
-        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+        <% if user_signed_in? %>
+          <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Add new figure.">
+            <a href="<%= new_diag_figure_path(@diag) %>", class="button radius">
+              <i class="fa fa-plus-square"></i>
+            </a>
+          </span>
+        <% end %>
+        <ul class="small-block-grid-1 medium-block-grid-2">
           <% @diag.figures.each do |f| %>
             <li>
               <div class="panel">

@@ -24,9 +24,11 @@
     </p>
     <% if can? :create, Experiment %>
       <p>
-        <a href="<%= new_experiment_path %>", class="button radius">
-          <i class="fa fa-plus-square"></i>
-        </a>
+        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Create an new experiment.">
+          <a href="<%= new_experiment_path %>", class="button radius">
+            <i class="fa fa-plus-square"></i>
+          </a>
+        </span>
       </p>
     <% end %>
   </div>

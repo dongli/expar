@@ -16,9 +16,15 @@
       <nav class="top-bar" data-topbar>
         <ul class="title-area">
           <li class="name">
-          <h1><a href="<%= main_index_path %>"><i class="fa fa-university fa-inverse"></i></a></h1>
+          <h1>
+              <a href="<%= main_index_path %>">
+                <i class="fa fa-university fa-inverse"></i>
+              </a>
+          </h1>
           </li>
-          <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+          <li class="toggle-topbar menu-icon">
+            <a href="#"><span>Menu</span></a>
+          </li>
         </ul>
 
         <section class="top-bar-section">
@@ -27,15 +33,28 @@
               <li class="divider"></li>
               <% if current_user.admin? %>
                 <li class="has-dropdown">
-                  <a href="#"><i class="fa fa-bolt fa-inverse"></i> - <%= current_user.first_name %></a>
+                  <a href="#">
+                    <i class="fa fa-bolt fa-inverse"></i>
+                    - <%= current_user.first_name %>
+                  </a>
                   <ul class="dropdown">
                     <li><%= link_to "Admin", dashboard_admin_path %></li>
                   </ul>
                 </li>
               <% elsif current_user.author? %>
-                <li><a href="#"><i class="fa fa-graduation-cap fa-inverse"></i> - <%= current_user.first_name %></a></li>
+                <li>
+                  <a href="#">
+                    <i class="fa fa-graduation-cap fa-inverse"></i>
+                    - <%= current_user.first_name %>
+                  </a>
+                </li>
               <% else %>
-                <li><a href="#"><i class="fa fa-user fa-inverse"></i> - <%= current_user.first_name %></a></li>
+                <li>
+                  <a href="#">
+                    <i class="fa fa-user fa-inverse"></i>
+                    - <%= current_user.first_name %>
+                  </a>
+                </li>
               <% end %>
             <% end %>
             <li class="divider"></li>
@@ -53,7 +72,13 @@
       </nav>
     </div>
 
-    <%= yield %>
+    <div class="wrapper">
+      <%= yield %>
+    </div>
+
+    <div class="footer">
+      Hand made by Li Dong. All rights reserved.
+    </div>
 
     <%= javascript_include_tag "application" %>
   </body>

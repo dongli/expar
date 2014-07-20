@@ -48,3 +48,31 @@ div.panel.diag {
 div.panel.diag:hover {
 	background: #EA4B3D;
 }
+
+.footer {
+    margin-top: 1em;
+    padding: 1em;
+    border-top: 2px solid #000;
+    text-align: center;
+}
+
+// For sticky footer:
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto 4em;
+}
+
+.footer, .push {
+    height: 4em;
+}
+

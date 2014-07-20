@@ -54,7 +54,7 @@ class DiagsController < ApplicationController
   def diag_params
     params.require(:diag).permit(:experiment_id,
                                  :category,
-                                 :author,
+                                 :contact,
                                  :email,
                                  :created_by_user,
                                  :comment)

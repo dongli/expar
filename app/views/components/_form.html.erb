@@ -3,22 +3,22 @@
     <div class="row collapse">
       <div class="small-12 small-offset-3 columns">
         <h1>
-          <% if @experiment.id == nil %>
-            Create an experiment
+          <% if @component.id == nil %>
+            Create an model component
           <% else %>
-            Update the experiment
+            Update the model component
           <% end %>
         </h1>
       </div>
     </div>
     <p>
-      <%= form_for @experiment do |f| %>
-        <% if @experiment.errors.any? %>
+      <%= form_for @component do |f| %>
+        <% if @component.errors.any? %>
           <div id="error_explanation">
-            <h2><%= pluralize(@experiment.errors.count, "error") %>
-              prohibited this experiment from being saved:</h2>
+            <h2><%= pluralize(@component.errors.count, "error") %>
+              prohibited this component from being saved:</h2>
             <ul>
-              <% @experiment.errors.full_messages.each do |msg| %>
+              <% @component.errors.full_messages.each do |msg| %>
                 <li><%= msg %></li>
               <% end %>
             </ul>
@@ -29,23 +29,31 @@
             <%= f.label :title, class: "right inline" %>
           </div>
           <div class="small-9 medium-9 columns">
-            <%= f.text_field :title %>
+            <%= f.text_field :title, placeholder: "Model title without version number." %>
           </div>
         </div>
         <div class="row collapse">
           <div class="small-1 medium-3 columns">
-            <%= f.label :model, class: "right inline" %>
+            <%= f.label :role, class: "right inline" %>
           </div>
           <div class="small-9 medium-9 columns">
-            <%= f.text_field :model %>
+            <%= f.select(:role, Component.roles.keys.map {|role| [role.titleize,role]}) %>
           </div>
         </div>
         <div class="row collapse">
           <div class="small-1 medium-3 columns">
-            <%= f.label :date, class: "right inline" %>
+            <%= f.label :versions, class: "right inline" %>
           </div>
           <div class="small-9 medium-9 columns">
-            <%= f.text_field :date %>
+            <%= f.text_field :versions, placeholder: "Available model versions separated by comma." %>
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :resolutions, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.text_field :resolutions, placeholder: "Available model resoluations separated by comma." %>
           </div>
         </div>
         <div class="row collapse">
@@ -53,10 +61,10 @@
             <%= f.label :contact, class: "right inline" %>
           </div>
           <div class="small-9 medium-9 columns">
-            <% if @experiment.new_record? %>
+            <% if @component.new_record? %>
               <%= f.text_field :contact, value: current_user.name %>
             <% else %>
-              <%= f.text_field :contact %>
+              <%= f.text_field :contact, placeholder: "Who is responsible for this model?" %>
             <% end %>
           </div>
         </div>
@@ -65,23 +73,31 @@
             <%= f.label :email, class: "right inline" %>
           </div>
           <div class="small-9 medium-9 columns">
-            <% if @experiment.new_record? %>
+            <% if @component.new_record? %>
               <%= f.text_field :email, value: "#{current_user.email}" %>
             <% else %>
-              <%= f.text_field :email %>
+              <%= f.text_field :email, placeholder: "Contacter's email." %>
             <% end %>
           </div>
         </div>
         <div class="row collapse">
+          <div class="small-1 medium-3 columns">
+            <%= f.label :home_url, class: "right inline" %>
+          </div>
+          <div class="small-9 medium-9 columns">
+            <%= f.text_field :home_url, placeholder: "Where to find the model information?" %>
+          </div>
+        </div>
+        <div class="row collapse">
           <div class="small-1 medium-3 columns"><%= f.label :comment, class: "right inline" %></div>
-          <div class="small-9 medium-9 columns"><%= f.text_area :comment %></div>
+          <div class="small-9 medium-9 columns"><%= f.text_area :comment, placeholder: "Any word about the model." %></div>
         </div>
         <div class="row collapse">
           <div class="small-12 small-offset-3 columns">
-            <% if @experiment.id == nil %>
-              <a href="<%= experiments_path %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
+            <% if @component.id == nil %>
+              <a href="<%= components_path %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
             <% else %>
-              <a href="<%= experiment_path(@experiment) %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
+              <a href="<%= component_path(@component) %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
             <% end %>
             <button type="submit" class="button radius">
               <%= fa_icon "save" %>

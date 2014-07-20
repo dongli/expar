@@ -11,12 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718125911) do
+ActiveRecord::Schema.define(version: 20140720055345) do
+
+  create_table "components", force: true do |t|
+    t.string   "title"
+    t.integer  "role"
+    t.string   "versions"
+    t.string   "resolutions"
+    t.string   "contact"
+    t.string   "email"
+    t.string   "home_url"
+    t.integer  "created_by_user"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "diags", force: true do |t|
     t.integer  "experiment_id"
     t.integer  "category"
-    t.string   "author"
+    t.string   "contact"
     t.string   "email"
     t.integer  "created_by_user"
     t.string   "comment"
@@ -28,7 +42,7 @@ ActiveRecord::Schema.define(version: 20140718125911) do
     t.string   "title"
     t.string   "model"
     t.string   "date"
-    t.string   "author"
+    t.string   "contact"
     t.string   "email"
     t.integer  "created_by_user"
     t.text     "comment"

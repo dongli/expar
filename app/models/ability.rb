@@ -9,7 +9,7 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.author?
-      can :crud, [Experiment, Diag, Figure]
+      can :crud, [ Component, Experiment, Diag, Figure ]
     else
       can :read, :all
     end

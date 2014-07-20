@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users, :path_prefix => 'd', :controllers => { registrations: 'registrations' }
+  devise_for :users,
+    path_prefix: 'd',
+    controllers: { registrations: 'registrations' }
 
   get 'main/index'
   get 'dashboard/admin'
@@ -7,6 +9,8 @@ Rails.application.routes.draw do
   root 'main#index'
 
   resources :users
+
+  resources :components
 
   resources :experiments, shallow: true do
     resources :diags do

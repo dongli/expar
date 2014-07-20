@@ -5,7 +5,7 @@
       <p>
         Created at <%= @diag.created_at %> by
         <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Send email to this guy.">
-          <a href="mailto:<%= @diag.email %>"><%= @diag.author %></a><br>
+          <a href="mailto:<%= @diag.email %>"><%= @diag.contact %></a><br>
         </span>
         <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Back to the experiment.">
           <a href="<%= experiment_path(@diag.experiment_id) %>", class="button radius">

@@ -52,7 +52,7 @@ class ExperimentsController < ApplicationController
     params.require(:experiment).permit(:title,
                                        :model,
                                        :date,
-                                       :author,
+                                       :contact,
                                        :email,
                                        :created_by_user,
                                        :comment)

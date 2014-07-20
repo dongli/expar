@@ -5,6 +5,6 @@ class Diag < ActiveRecord::Base
   enum category: [ :climo, :mjo ]
 
   validates :category, uniqueness: { scope: :experiment }, :on => :create
-  validates :author, presence: true
+  validates :contact, presence: true
   validates :email, presence: true
 end

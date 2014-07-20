@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="small-12 small-centered columns">
+    <div class="panel">
+      <h1>Model component</h1>
+      <p>
+        <table class="profile">
+          <tbody>
+            <tr>
+              <td class="key"><strong>Title</strong></td>
+              <td class="value"><%= @component.title %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Role</strong></td>
+              <td class="value"><%= @component.role.titleize %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Versions</strong></td>
+              <td class="value"><%= @component.versions %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Resolutions</strong></td>
+              <td class="value"><%= @component.resolutions %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Contact</strong></td>
+              <td class="value"><a href="mailto:<%= @component.email %>"><%= @component.contact %></a></td>
+            </tr>
+            <tr>
+              <td><strong>Comment</strong></td>
+              <td><%= @component.comment %></td>
+            </tr>
+          </tbody>
+        </table>
+      </p>
+      <p>
+        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Back to component list.">
+          <a href="<%= components_path %>", class="button radius">
+            <i class="fa fa-arrow-left"></i>
+          </a>
+        </span>
+        <% if user_signed_in? %>
+          <% if @component.created_by_user == current_user.id or current_user.admin? %>
+            <% if can? :update, Component %>
+              <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Edit component information.">
+                <a href="<%= edit_component_path(@component) %>", class="button radius">
+                  <i class="fa fa-edit"></i>
+                </a>
+              </span>
+            <% end %>
+            <% if can? :destroy, Component %>
+              <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Delete this component. Be careful!">
+                <%= link_to component_path(@component),
+                  class: "button radius alert",
+                  method: :delete,
+                  data: { confirm: 'Are you sure to delete this component?' } do %>
+                  <i class="fa fa-trash-o"></i>
+                <% end %>
+              </span>
+            <% end %>
+          <% end %>
+        <% end %>
+      </p>
+    </div>
+</div>

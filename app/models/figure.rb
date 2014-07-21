@@ -1,5 +1,5 @@
 class Figure < ActiveRecord::Base
-  belongs_to :diag, inverse_of: :figures
+  belongs_to :diag, dependent: :destroy
 
   has_attached_file :file, :styles => { :small => '800x800>' },
     url: '/assets/figures/:id/:style/:basename.:extension',

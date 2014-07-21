@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users
 
   resources :components
+  resources :models
 
   resources :experiments, shallow: true do
     resources :diags do

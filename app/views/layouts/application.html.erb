@@ -3,30 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title><%= content_for?(:title) ? yield(:title) : "Experiment Archive" %></title>
-
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
-
   <body>
     <div class="sticky">
       <nav class="top-bar" data-topbar>
         <ul class="title-area">
           <li class="name">
-          <h1>
+            <h1>
               <a href="<%= main_index_path %>">
                 <i class="fa fa-university fa-inverse"></i>
               </a>
-          </h1>
+            </h1>
           </li>
           <li class="toggle-topbar menu-icon">
             <a href="#"><span>Menu</span></a>
           </li>
         </ul>
-
         <section class="top-bar-section">
           <ul class="right">
             <% if user_signed_in? %>
@@ -35,7 +31,8 @@
                 <li class="has-dropdown">
                   <a href="#">
                     <i class="fa fa-bolt fa-inverse"></i>
-                    - <%= current_user.first_name %>
+                    -
+                    <%= current_user.first_name %>
                   </a>
                   <ul class="dropdown">
                     <li><%= link_to "Admin", dashboard_admin_path %></li>
@@ -45,43 +42,47 @@
                 <li>
                   <a href="#">
                     <i class="fa fa-graduation-cap fa-inverse"></i>
-                    - <%= current_user.first_name %>
+                    -
+                    <%= current_user.first_name %>
                   </a>
                 </li>
               <% else %>
                 <li>
                   <a href="#">
                     <i class="fa fa-user fa-inverse"></i>
-                    - <%= current_user.first_name %>
+                    -
+                    <%= current_user.first_name %>
                   </a>
                 </li>
               <% end %>
             <% end %>
             <li class="divider"></li>
             <li><%= link_to "Experiments", experiments_path %>
-            <li class="divider"></li>
-            <li><%= link_to "Models", components_path %>
-            <li class="divider"></li>
-            <li>
-              <% if user_signed_in? %>
-                <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-              <% else %>
-                <%= link_to "Log in", new_user_session_path %>
-              <% end %>
-            </li>
-          </ul>
-        </section>
-      </nav>
-    </div>
-
-    <div class="wrapper">
-      <%= yield %>
-    </div>
-
-    <div class="footer">
-      Hand made by Li Dong. All rights reserved.
-    </div>
-
-    <%= javascript_include_tag "application" %>
-  </body>
-</html>
+              <li class="divider"></li>
+              <li class="has-dropdown">
+                <%= link_to "Models", models_path %>
+                <ul class="dropdown">
+                  <li><%= link_to "Components", components_path %></li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <% if user_signed_in? %>
+                  <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+                <% else %>
+                  <%= link_to "Log in", new_user_session_path %>
+                <% end %>
+              </li>
+            </ul>
+          </section>
+        </nav>
+      </div>
+      <div class="wrapper">
+        <%= yield %>
+      </div>
+      <div class="footer">
+        Hand made by Li Dong. All rights reserved.
+      </div>
+      <%= javascript_include_tag "application" %>
+    </body>
+  </html>

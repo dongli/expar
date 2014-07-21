@@ -1,6 +1,6 @@
 class Diag < ActiveRecord::Base
-  belongs_to :experiment, inverse_of: :diags
-  has_many :figures, dependent: :destroy, inverse_of: :diag
+  belongs_to :experiment
+  has_many :figures, dependent: :destroy
 
   enum category: [ :climo, :mjo ]
 

@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="small-12 small-centered columns">
+    <div class="panel">
+      <h1>Model</h1>
+      <p>
+        <table class="profile">
+          <tbody>
+            <tr>
+              <td class="key"><strong>Title</strong></td>
+              <td class="value"><%= @model.title %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Contact</strong></td>
+              <td class="value"><a href="mailto:<%= @model.email %>"><%= @model.contact %></a></td>
+            </tr>
+            <tr>
+              <td><strong>Comment</strong></td>
+              <td><%= @model.comment %></td>
+            </tr>
+          </tbody>
+        </table>
+      </p>
+    </div>
+    <div class="panel">
+      <h1>Components</h1>
+      <p>
+        <ul class="small-block-grid-1 medium-block-grid-2">
+          <% @model.components.each do |c| %>
+            <li>
+              <div class="panel component">
+                <%= link_to "#{c.role.titleize}: #{c.title}", component_path(c) %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    </div>
+    <p>
+      <% if user_signed_in? %>
+        <% if @model.created_by_user == current_user.id or current_user.admin? %>
+          <% if can? :update, Component %>
+            <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Edit model information.">
+              <a href="<%= edit_model_path %>", class="button radius">
+                <i class="fa fa-edit"></i>
+              </a>
+            </span>
+          <% end %>
+          <% if can? :destroy, Component %>
+            <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Delete this model. Be careful!">
+              <%= link_to model_path(@model),
+                  class: "button radius alert",
+                  method: :delete,
+                  data: { confirm: 'Are you sure to delete this model?' } do %>
+                <i class="fa fa-trash-o"></i>
+              <% end %>
+            </span>
+          <% end %>
+        <% end %>
+      <% end %>
+    </p>
+  </div>
+</div>

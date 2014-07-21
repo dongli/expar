@@ -94,11 +94,6 @@
         </div>
         <div class="row collapse">
           <div class="small-12 small-offset-3 columns">
-            <% if @component.id == nil %>
-              <a href="<%= components_path %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
-            <% else %>
-              <a href="<%= component_path(@component) %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
-            <% end %>
             <button type="submit" class="button radius">
               <%= fa_icon "save" %>
             </button>

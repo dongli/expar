@@ -33,11 +33,6 @@
         </table>
       </p>
       <p>
-        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Back to component list.">
-          <a href="<%= components_path %>", class="button radius">
-            <i class="fa fa-arrow-left"></i>
-          </a>
-        </span>
         <% if user_signed_in? %>
           <% if @component.created_by_user == current_user.id or current_user.admin? %>
             <% if can? :update, Component %>
@@ -61,4 +56,5 @@
         <% end %>
       </p>
     </div>
+  </div>
 </div>

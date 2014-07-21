@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720055345) do
+ActiveRecord::Schema.define(version: 20140720093339) do
 
   create_table "components", force: true do |t|
     t.string   "title"
@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(version: 20140720055345) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "components_models", id: false, force: true do |t|
+    t.integer "component_id", null: false
+    t.integer "model_id",     null: false
   end
 
   create_table "diags", force: true do |t|
@@ -58,6 +63,16 @@ ActiveRecord::Schema.define(version: 20140720055345) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.text     "comment"
+    t.integer  "created_by_user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "models", force: true do |t|
+    t.string   "title"
+    t.string   "contact"
+    t.string   "email"
+    t.string   "comment"
     t.integer  "created_by_user"
     t.datetime "created_at"
     t.datetime "updated_at"

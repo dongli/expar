@@ -1,5 +1,5 @@
 class Experiment < ActiveRecord::Base
-  has_many :diags, dependent: :destroy, inverse_of: :experiment
+  has_many :diags, dependent: :destroy
 
   validates :title, presence: true
   validates :title, uniqueness: true, :on => :create

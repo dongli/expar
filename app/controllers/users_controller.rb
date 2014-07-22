@@ -32,6 +32,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
+      sign_in @user, bypass: true
       redirect_to @user
     else
       render 'edit'
@@ -51,6 +52,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name,
                                  :last_name,
                                  :role,
-                                 :email)
+                                 :email,
+                                 :password,
+                                 :password_confirmation)
   end
 end

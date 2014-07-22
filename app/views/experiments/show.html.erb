@@ -10,6 +10,20 @@
               <td class="value"><%= @experiment.title %></td>
             </tr>
             <tr>
+              <td class="key"><strong>Model</strong></td>
+              <td class="value">
+                <%= link_to get_model(@experiment.model_id).title, model_path(@experiment.model_id) %>
+              </td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Component versions</strong></td>
+              <td class="value"><%= @experiment.component_versions %></td>
+            </tr>
+            <tr>
+              <td class="key"><strong>Component resolutions</strong></td>
+              <td class="value"><%= @experiment.component_resolutions %></td>
+            </td>
+            <tr>
               <td class="key"><strong>Date</strong></td>
               <td class="value"><%= @experiment.date %></td>
             </tr>
@@ -25,11 +39,6 @@
         </table>
       </p>
       <p>
-        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Back to experiment list.">
-          <a href="<%= experiments_path %>", class="button radius">
-            <i class="fa fa-arrow-left"></i>
-          </a>
-        </span>
         <% if user_signed_in? %>
           <% if @experiment.created_by_user == current_user.id or current_user.admin? %>
             <% if can? :update, Experiment %>

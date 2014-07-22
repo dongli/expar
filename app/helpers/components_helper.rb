@@ -1,4 +1,12 @@
 module ComponentsHelper
+  def get_available_versions(component)
+    return component.versions.split(/,\s*/)
+  end
+
+  def get_available_resolutions(component)
+    return component.resolutions.split(/,\s*/)
+  end
+
   def get_all_atmosphere_components
     res = []
     Component.all.each do |c|

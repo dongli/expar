@@ -1,8 +1,10 @@
 class CreateExperiments < ActiveRecord::Migration
   def change
     create_table :experiments do |t|
+      t.belongs_to :model
       t.string :title
-      t.string :model
+      t.string :component_versions
+      t.string :component_resolutions
       t.string :date
       t.string :contact
       t.string :email

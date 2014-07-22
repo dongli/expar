@@ -44,8 +44,10 @@ ActiveRecord::Schema.define(version: 20140720093339) do
   end
 
   create_table "experiments", force: true do |t|
+    t.integer  "model_id"
     t.string   "title"
-    t.string   "model"
+    t.string   "component_versions"
+    t.string   "component_resolutions"
     t.string   "date"
     t.string   "contact"
     t.string   "email"

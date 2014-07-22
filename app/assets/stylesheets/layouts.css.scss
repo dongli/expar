@@ -49,6 +49,12 @@ div.panel.diag:hover {
 	background: #EA4B3D;
 }
 
+div.alert-box.warning {
+    color: red;
+    font-weight: bold;
+    margin: 1em;
+}
+
 ul.checkbox-list {
     list-style-type: none;
 }

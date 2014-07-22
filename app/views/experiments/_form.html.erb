@@ -37,7 +37,7 @@
             <%= f.label :model, class: "right inline" %>
           </div>
           <div class="small-9 medium-9 columns">
-            <%= f.text_field :model %>
+            <%= f.select :model_id, Model.all.map {|m| [m.title,m.id]} %>
           </div>
         </div>
         <div class="row collapse">
@@ -76,13 +76,36 @@
           <div class="small-1 medium-3 columns"><%= f.label :comment, class: "right inline" %></div>
           <div class="small-9 medium-9 columns"><%= f.text_area :comment %></div>
         </div>
+        <!-- TODO: Change the following elements. -->
+        <% if @experiment.model_id %>
+          <div class="panel">
+            <div class="alert-box warning">
+              I will make the following settings of the versions and resolutions of
+              model components show up when the experiment is added.
+            </div>
+            <% model = get_model(@experiment.model_id) %>
+            <% model.components.each do |c| %>
+              <div class="row collapse">
+                <div class="small-1 medium-3 columns">
+                  <%= f.label c.title+"_version", class: "right inline" %>
+                </div>
+                <div class="small-9 medium-9 columns">
+                  <%= f.select c.role+"_version", get_available_versions(c) %>
+                </div>
+              </div>
+              <div class="row collapse">
+                <div class="small-1 medium-3 columns">
+                  <%= f.label c.title+"_resolution", class: "right inline" %>
+                </div>
+                <div class="small-9 medium-9 columns">
+                  <%= f.select c.role+"_resolution", get_available_resolutions(c) %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
         <div class="row collapse">
           <div class="small-12 small-offset-3 columns">
-            <% if @experiment.id == nil %>
-              <a href="<%= experiments_path %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
-            <% else %>
-              <a href="<%= experiment_path(@experiment) %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
-            <% end %>
             <button type="submit" class="button radius">
               <%= fa_icon "save" %>
             </button>

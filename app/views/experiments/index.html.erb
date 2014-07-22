@@ -14,7 +14,7 @@
           <% @experiments.each do |e| %>
             <tr>
               <td><%= link_to "#{e.title}", experiment_path(e) %></td>
-              <td><%= e.model %></td>
+              <td><%= link_to get_model(e.model_id).title, model_path(e.model_id) %></td>
               <td><%= e.comment %></td>
               <td><a href="mailto:<%= e.email %>"><%= e.contact %></a></td>
             </tr>

@@ -32,6 +32,17 @@ class ExperimentsController < ApplicationController
   def update
     @experiment = Experiment.find(params[:id])
 
+    @experiment.component_versions = ''
+    @experiment.component_resolutions = ''
+    Model.all.find(@experiment.model_id).components.each do |c|
+      version = params[:experiment][c.role+'_version']
+      @experiment.component_versions += c.title+':'+version+', '
+      resolution = params[:experiment][c.role+'_resolution']
+      @experiment.component_resolutions += c.title+':'+resolution+', '
+    end
+    @experiment.component_versions.gsub!(/, $/, '')
+    @experiment.component_resolutions.gsub!(/, $/, '')
+
     if @experiment.update(experiment_params)
       redirect_to @experiment
     else
@@ -50,11 +61,15 @@ class ExperimentsController < ApplicationController
 
   def experiment_params
     params.require(:experiment).permit(:title,
-                                       :model,
+                                       :model_id,
                                        :date,
                                        :contact,
                                        :email,
                                        :created_by_user,
+                                       :atmosphere_version,
+                                       :atmosphere_resolution,
+                                       :land_version,
+                                       :land_resolution,
                                        :comment)
   end
 end

@@ -114,11 +114,6 @@
         </ul>
       </div>
       <p>
-        <% if @model.id == nil %>
-          <a href="<%= models_path %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
-        <% else %>
-          <a href="<%= model_path %>", class="button radius"><i class="fa fa-arrow-left"></i></a>
-        <% end %>
         <button type="submit" class="button radius">
           <%= fa_icon "save" %>
         </button>

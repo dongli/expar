@@ -39,20 +39,26 @@
                   </ul>
                 </li>
               <% elsif current_user.author? %>
-                <li>
+                <li class="has-dropdown">
                   <a href="#">
                     <i class="fa fa-graduation-cap fa-inverse"></i>
                     -
                     <%= current_user.first_name %>
                   </a>
+                  <ul class="dropdown">
+                    <li><%= link_to "Profile", user_path(current_user) %></li>
+                  </ul>
                 </li>
               <% else %>
-                <li>
+                <li class="has-dropdown">
                   <a href="#">
                     <i class="fa fa-user fa-inverse"></i>
                     -
                     <%= current_user.first_name %>
                   </a>
+                  <ul class="dropdown">
+                    <li><%= link_to "Profile", user_path(current_user) %></li>
+                  </ul>
                 </li>
               <% end %>
             <% end %>

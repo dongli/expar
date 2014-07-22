@@ -1,8 +1,32 @@
 <div class="row">
-  <div class="small-12 medium-6 small-centered columns">
-    <p>
-      Hello,
-      <%= @user.first_name %>!
-    </p>
+  <div class="small-12 small-centered columns">
+    <div class="panel">
+      <h1>User profile</h1>
+      <table class="profile">
+        <tbody>
+          <tr>
+            <td class="key"><strong>Name</strong></td>
+            <td class="value"><%= get_user_name(@user) %></td>
+          </tr>
+          <tr>
+            <td class="key"><strong>Email</strong></td>
+            <td class="value"><%= @user.email %></td>
+          </tr>
+          <tr>
+            <td class="key"><strong>Role</strong></td>
+            <td class="value"><%= @user.role %></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <% if user_signed_in? %>
+          <% if current_user.id == @user.id or current_user.admin? %>
+            <a href="<%= edit_user_path(@user) %>", class="button radius">
+              <i class="fa fa-edit"></i>
+            </a>
+          <% end %>
+        <% end %>
+      </p>
+    </div>
   </div>
 </div>

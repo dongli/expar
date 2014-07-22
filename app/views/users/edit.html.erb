@@ -1,65 +1,99 @@
 <div class="row">
-  <div class="small-12 medium-6 small-centered columns">
-    <div class="row collapse">
-      <div class="small-12 small-offset-3 columns">
-        <h1>
-          Update user #<%= @user.id %>
-        </h1>
+  <div class="small-12 medium-9 small-centered columns">
+    <div class="panel">
+      <div class="row collapse">
+        <div class="small-12 small-offset-3 columns">
+          <h1>
+            Update user
+          </h1>
+        </div>
       </div>
-    </div>
-    <p>
-      <%= form_for @user do |f| %>
-        <% if @user.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@user.errors.count, "error") %>
-              prohibited this experiment from being saved:</h2>
-            <ul>
-              <% @user.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
+      <p>
+        <%= form_for @user do |f| %>
+          <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@user.errors.count, "error") %>
+                prohibited this experiment from being saved:</h2>
+              <ul>
+                <% @user.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :first_name, class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <%= f.text_field :first_name %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :last_name, class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <%= f.text_field :last_name %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :email, class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <%= f.text_field :email %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :role, class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <% if current_user.admin? %>
+                <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+              <% else %>
+                <%= current_user.role %>
+                (Send email to
+                <a href="mailto:<%= get_admin_email %>">admin</a>
+                to request a change.)
               <% end %>
-            </ul>
+            </div>
+          </div>
+          <%= f.hidden_field :reset_password_token %>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :password, "New password", class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <%= f.password_field :password, autocomplete: "off" %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :password_confirmation, "Confirm new password", class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <%= f.password_field :password_confirmation, autocomplete: "off" %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-12 small-offset-3 columns">
+              <button type="submit" class="button radius">
+                <%= fa_icon "save" %>
+              </button>
+              <% if current_user.admin? %>
+                <%= link_to user_path(@user),
+                  class: "button radius alert",
+                  method: :delete,
+                  data: { confirm: 'Are you sure to delete this user?' } do %>
+                  <i class="fa fa-trash-o"></i>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         <% end %>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns">
-            <%= f.label :first_name, class: "right inline" %>
-          </div>
-          <div class="small-9 medium-9 columns">
-            <%= f.text_field :first_name %>
-          </div>
-        </div>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns">
-            <%= f.label :last_name, class: "right inline" %>
-          </div>
-          <div class="small-9 medium-9 columns">
-            <%= f.text_field :last_name %>
-          </div>
-        </div>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns">
-            <%= f.label :email, class: "right inline" %>
-          </div>
-          <div class="small-9 medium-9 columns">
-            <%= f.text_field :email %>
-          </div>
-        </div>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns">
-            <%= f.label :role, class: "right inline" %>
-          </div>
-          <div class="small-9 medium-9 columns">
-            <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-          </div>
-        </div>
-        <div class="row collapse">
-          <div class="small-12 small-offset-3 columns">
-            <button type="submit" class="button radius">
-              <%= fa_icon "save" %>
-            </button>
-          </div>
-        </div>
-      <% end %>
-    </p>
+      </p>
+    </div>
   </div>
 </div>

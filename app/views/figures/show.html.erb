@@ -1,48 +1,51 @@
 <div class="row">
   <div class="small-12 media-8 small-centered columns">
-    <h1>Figure: <%= @figure.title %></h1>
-    <p>
-      Created at <%= @figure.created_at %> by
-      <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Send email to this guy.">
-        <a href="mailto:<%= User.find(@figure.created_by_user).email %>">
-          <%= User.find(@figure.created_by_user).name %>
-        </a>
-      </span>
-    </p>
-    <p>
-      <figure>
-        <%= image_tag @figure.file.url(:small) %>
-        <figcaption>
-          <%= @figure.comment %>
-        </figcaption>
-      </figure>
-    </p>
-    <p>
-      <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Back to diagnostics.">
-        <a href="<%= diag_path(@figure.diag_id) %>", class="button radius">
-          <i class="fa fa-arrow-left"></i>
-        </a>
-      </span>
-      <% if user_signed_in? %>
-        <% if @figure.created_by_user == current_user.id or current_user.admin? %>
-          <% if can? :update, Figure %>
-            <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Edit this figure.">
-              <a href="<%= edit_figure_path(@figure) %>", class="button radius">
-                <i class="fa fa-edit"></i>
-              </a>
-            </span>
-          <% end %>
-          <% if can? :destroy, Figure %>
-            <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Delete this figure. Be careful!">
-              <%= link_to figure_path(diag_id: @figure.diag_id, id: @figure.id),
-                class: "button radius alert", method: :delete,
-                data: { confirm: 'Are you sure to delete this figure?' } do %>
-                <i class="fa fa-trash-o"></i>
-              <% end %>
-            </span>
+    <nav class="breadcrumbs">
+      <a href="<%= experiments_path %>">Experiments</a>
+      <a href="<%= experiment_path(get_diag_experiment(@figure.diag_id)) %>">Experiment</a>
+      <a href="<%= diag_path(@figure.diag_id) %>">Diagnostics</a>
+      <a href="#" class="current">Figure</a>
+    </nav>
+    <div class="panel">
+      <h1>Figure: <%= @figure.title %></h1>
+      <p>
+        Created at <%= @figure.created_at %> by
+        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Send email to this guy.">
+          <a href="mailto:<%= User.find(@figure.created_by_user).email %>">
+            <%= User.find(@figure.created_by_user).name %>
+          </a>
+        </span>
+      </p>
+      <p>
+        <figure>
+          <%= image_tag @figure.file.url(:small) %>
+          <figcaption>
+            <%= @figure.comment %>
+          </figcaption>
+        </figure>
+      </p>
+      <p>
+        <% if user_signed_in? %>
+          <% if @figure.created_by_user == current_user.id or current_user.admin? %>
+            <% if can? :update, Figure %>
+              <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Edit this figure.">
+                <a href="<%= edit_figure_path(@figure) %>", class="button radius">
+                  <i class="fa fa-edit"></i>
+                </a>
+              </span>
+            <% end %>
+            <% if can? :destroy, Figure %>
+              <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Delete this figure. Be careful!">
+                <%= link_to figure_path(diag_id: @figure.diag_id, id: @figure.id),
+                  class: "button radius alert", method: :delete,
+                  data: { confirm: 'Are you sure to delete this figure?' } do %>
+                  <i class="fa fa-trash-o"></i>
+                <% end %>
+              </span>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
-    </p>
+      </p>
+    </div>
   </div>
 </div>

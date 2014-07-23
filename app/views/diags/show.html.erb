@@ -1,16 +1,16 @@
 <div class="row">
   <div class="small-12 small-centered columns">
+    <nav class="breadcrumbs">
+      <a href="<%= experiments_path %>">Experiments</a>
+      <a href="<%= experiment_path(@diag.experiment_id) %>">Experiment</a>
+      <a href="#" class="current">Diagnostics</a>
+    </nav>
     <div class="panel">
       <h1><%= @diag.category.upcase %> diagnostics</h1>
       <p>
         Created at <%= @diag.created_at %> by
         <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Send email to this guy.">
           <a href="mailto:<%= @diag.email %>"><%= @diag.contact %></a><br>
-        </span>
-        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Back to the experiment.">
-          <a href="<%= experiment_path(@diag.experiment_id) %>", class="button radius">
-            <i class="fa fa-arrow-left"></i>
-          </a>
         </span>
         <% if user_signed_in? %>
           <% if @diag.created_by_user == current_user.id or current_user.admin?  %>

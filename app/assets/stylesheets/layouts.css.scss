@@ -17,7 +17,7 @@ p {
 }
 
 table {
-	margin: 1em;
+    margin: 1em;
 }
 
 table.profile {
@@ -57,6 +57,14 @@ div.alert-box.warning {
 
 ul.checkbox-list {
     list-style-type: none;
+}
+
+img.gravatar {
+    border-radius: 15px;
+}
+
+nav.breadcrumbs {
+    margin: 1em;
 }
 
 .footer {

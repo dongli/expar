@@ -1,38 +1,44 @@
 <div class="row">
   <div class="small-12 small-centered columns">
-    <h1>Model components</h1>
-    <p>
-      <table>
-        <thead>
-          <tr>
-            <th width="200">Title</th>
-            <th width="200">Role</th>
-            <th width="200">Versions</th>
-            <th width="400">Resolutions</th>
-            <th width="200">Contact</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @components.each do |e| %>
-            <tr>
-              <td><%= link_to "#{e.title}", component_path(e) %></td>
-              <td><%= e.role %></td>
-              <td><%= e.versions %></td>
-              <td><%= e.resolutions %></td>
-              <td><a href="mailto:<%= e.email %>"><%= e.contact %></a></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </p>
-    <% if can? :create, Component %>
+    <nav class="breadcrumbs">
+      <a href="<%= models_path %>">Models</a>
+      <a href="#" class="current">Components</a>
+    </nav>
+    <div class="panel">
+      <h1>Model components</h1>
       <p>
-        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Create an new component.">
-          <a href="<%= new_component_path %>", class="button radius">
-            <i class="fa fa-plus-square"></i>
-          </a>
-        </span>
+        <table>
+          <thead>
+            <tr>
+              <th width="200">Title</th>
+              <th width="200">Role</th>
+              <th width="200">Versions</th>
+              <th width="400">Resolutions</th>
+              <th width="200">Contact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @components.each do |e| %>
+              <tr>
+                <td><%= link_to "#{e.title}", component_path(e) %></td>
+                <td><%= e.role %></td>
+                <td><%= e.versions %></td>
+                <td><%= e.resolutions %></td>
+                <td><a href="mailto:<%= e.email %>"><%= e.contact %></a></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </p>
-    <% end %>
+      <% if can? :create, Component %>
+        <p>
+          <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Create an new component.">
+            <a href="<%= new_component_path %>", class="button radius">
+              <i class="fa fa-plus-square"></i>
+            </a>
+          </span>
+        </p>
+      <% end %>
+    </div>
   </div>
 </div>

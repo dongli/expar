@@ -1,6 +1,6 @@
 <div class="row">
   <div class="small-12 small-centered columns">
-    <p>
+    <div class="panel">
       <table>
         <thead>
           <tr>
@@ -21,7 +21,6 @@
           <% end %>
         </tbody>
       </table>
-    </p>
     <% if can? :create, Experiment %>
       <p>
         <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Create an new experiment.">
@@ -31,5 +30,6 @@
         </span>
       </p>
     <% end %>
+    </div>
   </div>
 </div>

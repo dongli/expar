@@ -7,9 +7,12 @@
       <a href="#" class="current">Figure</a>
     </nav>
     <div class="panel">
-      <h1>Figure: <%= @figure.title %></h1>
+      <h1>Figure:
+        <%= @figure.title %></h1>
       <p>
-        Created at <%= @figure.created_at %> by
+        Created at
+        <%= @figure.created_at %>
+        by
         <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Send email to this guy.">
           <a href="mailto:<%= User.find(@figure.created_by_user).email %>">
             <%= User.find(@figure.created_by_user).name %>
@@ -18,7 +21,11 @@
       </p>
       <p>
         <figure>
-          <%= image_tag @figure.file.url(:small) %>
+          <% if not browser.safari? %>
+            <%= image_tag @figure.file.url(:medium) %>
+          <% else %>
+            <%= image_tag @figure.file.url(:original) %>
+          <% end %>
           <figcaption>
             <%= @figure.comment %>
           </figcaption>
@@ -36,7 +43,7 @@
             <% end %>
             <% if can? :destroy, Figure %>
               <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Delete this figure. Be careful!">
-                <%= link_to figure_path(diag_id: @figure.diag_id, id: @figure.id),
+                <%= link_to figure_path(@figure),
                   class: "button radius alert", method: :delete,
                   data: { confirm: 'Are you sure to delete this figure?' } do %>
                   <i class="fa fa-trash-o"></i>

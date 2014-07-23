@@ -32,11 +32,19 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      sign_in @user, bypass: true
+      if @user == current_user
+        sign_in @user, bypass: true
+      end
       redirect_to @user
     else
       render 'edit'
     end
+  end
+
+  def change_password
+    @user = User.find(params[:id])
+
+    render 'change_password'
   end
 
   def destroy

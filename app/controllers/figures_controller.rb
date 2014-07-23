@@ -40,7 +40,7 @@ class FiguresController < ApplicationController
 
   def destroy
     @figure = Figure.find(params[:id])
-    @diag = Diag.find(params[:diag_id])
+    @diag = Diag.find(@figure.diag_id)
     @figure.destroy
 
     redirect_to @diag

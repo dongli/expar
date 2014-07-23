@@ -6,12 +6,17 @@
       <a href="#" class="current">Diagnostics</a>
     </nav>
     <div class="panel">
-      <h1><%= @diag.category.upcase %> diagnostics</h1>
+      <h1><%= @diag.category.upcase %>
+        diagnostics</h1>
       <p>
-        Created at <%= @diag.created_at %> by
+        Created at
+        <%= @diag.created_at %>
+        by
         <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Send email to this guy.">
           <a href="mailto:<%= @diag.email %>"><%= @diag.contact %></a><br>
         </span>
+      </p>
+      <p>
         <% if user_signed_in? %>
           <% if @diag.created_by_user == current_user.id or current_user.admin?  %>
             <% if can? :update, Diag %>

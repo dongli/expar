@@ -1,7 +1,7 @@
 class Figure < ActiveRecord::Base
-  belongs_to :diag, dependent: :destroy
+  belongs_to :diag
 
-  has_attached_file :file, :styles => { :small => '800x800>' },
+  has_attached_file :file, styles: { small: [ '800x800>', :png ], medium: [ '1200x1200', :png ] },
     url: '/assets/figures/:id/:style/:basename.:extension',
     path: ':rails_root/public/assets/figures/:id/:style/:basename.:extension'
 

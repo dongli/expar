@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root 'main#index'
 
   resources :users
+  get 'users/:id/change_password', to: 'users#change_password', as: 'change_password'
 
   resources :components
   resources :models

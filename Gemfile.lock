@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
+    browser (0.6.0)
     builder (3.2.2)
     cancancan (1.8.4)
     climate_control (0.0.3)
@@ -138,6 +139,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  browser
   cancancan (~> 1.8)
   coffee-rails (~> 4.0.0)
   devise

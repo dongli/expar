@@ -1,5 +1,6 @@
 <div class="row">
-  <div class="small-12 medium-6 small-centered columns"><p>
+  <div class="small-12 medium-6 small-centered columns">
+    <div class="panel">
       <%= form_for :figure, url: diag_figures_path, html: { :multipart => true } do |f| %>
         <div class="row collapse">
           <div class="small-12 small-offset-3 columns">
@@ -58,5 +59,6 @@
           </div>
         </div>
       <% end %>
-    </p></div>
+    </div>
+  </div>
 </div>

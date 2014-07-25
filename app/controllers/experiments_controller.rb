@@ -1,8 +1,10 @@
 class ExperimentsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter except: [ :index, :show ] { authenticate_user(params) }
+  respond_to :html, :json
 
   def index
     @experiments = Experiment.all
+    respond_with @experiments
   end
 
   def new
@@ -10,19 +12,37 @@ class ExperimentsController < ApplicationController
   end
 
   def create
+    if params[:format] == 'json'
+      # Replace model name (String) in params with model id and object.
+      Model.all.each do |m|
+        if params[:experiment][:model] == m.title
+          params[:experiment][:model_id] = m.id
+          params[:experiment][:model] = m
+          break
+        end
+      end
+    end
     @experiment = Experiment.new(experiment_params)
     @experiment.created_by_user = current_user.id
     @experiment.diags = []
 
     if @experiment.save
-      redirect_to @experiment
+      if params[:format] == 'json'
+        respond_with @experiment
+      else
+        redirect_to @experiment
+      end
     else
-      render 'new'
+      if params[:format] == 'json'
+      else
+        render 'new'
+      end
     end
   end
 
   def show
     @experiment = Experiment.find(params[:id])
+    respond_with @experiment
   end
 
   def edit
@@ -61,6 +81,7 @@ class ExperimentsController < ApplicationController
 
   def experiment_params
     params.require(:experiment).permit(:title,
+                                       :model,
                                        :model_id,
                                        :date,
                                        :contact,
@@ -70,6 +91,8 @@ class ExperimentsController < ApplicationController
                                        :atmosphere_resolution,
                                        :land_version,
                                        :land_resolution,
+                                       :component_versions,
+                                       :component_resolutions,
                                        :comment)
   end
 end

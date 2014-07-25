@@ -1,6 +1,7 @@
 <div class="row">
   <div class="small-12 large-12 columns">
-    <p>
+    <div class="panel">
+      <h3>Words from author</h3>
       <blockquote>
         <p>
           This website is designed for archiving model experiments! The current
@@ -22,9 +23,9 @@
           <a href="mailto:dongli@lasg.iap.ac.cn">me</a>.
         </p>
         <p>
-        To better make users know each other, it would be great if a proper
+          To better make users know each other, it would be great if a proper
         head portrait is provied through
-        <a href="https://secure.gravatar.com">Gravatar</a>.
+          <a href="https://secure.gravatar.com">Gravatar</a>.
         </p>
         <p>
           Thank you for your attention!
@@ -34,6 +35,19 @@
         </p>
         <cite>Li Dong</cite>
       </blockquote>
-    </p>
+    </div>
+    <div class="panel">
+      <h3>Development plan</h3>
+      <ul class="checkbox-list">
+        <li><%= fa_icon 'check-square-o' %>
+          Add API for this website so that we can access it through
+          <i>curl</i>.</li>
+        <li><%= fa_icon 'check-square-o' %>
+          After finish API, write a script to upload the figures produced by
+          NCAR AMWG diagnostics package for easy sharing model results.</li>
+        <li><%= fa_icon 'square-o' %>
+          Organize the figures in a more readable way, and provide search functionality.</li>
+      </ul>
+    </div>
   </div>
 </div>

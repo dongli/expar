@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+# Description:
+#
+# This script is used to create an experiment, and upload the climatology
+# diagnostics produced by NCAR AMWG package.
+#
+# Author:
+#
+#   - Li Dong <dongli@lasg.iap.ac.cn>
+
+require 'json'
+
+root_url              = 'http://gamil.lasg.ac.cn:3000'
+email                 = 'dongli@lasg.iap.ac.cn'
+password              = 'vot8gofo'
+title                 = 'Original radiation scheme benchmark'
+model                 = 'GAMIL-CLM'
+component_versions    = 'GAMIL:2,CLM:2'
+component_resolutions = 'GAMIL:128x60_26,CLM:?'
+date                  = '2014-07-14'
+contact               = 'Li Dong'
+email                 = 'dongli@lasg.iap.ac.cn'
+comment               = 'This experiment is used as a reference for \"BCC-RAD test\" experiments. The radiation scheme is the original one.'
+
+def curl_data(action)
+  "curl -s -X #{action} -H 'Content-Type: application/json'"
+end
+
+def curl_form(action)
+  "curl -s -X #{action} -H 'Content-Type: multipart/form-data'"
+end
+
+# Create an experiment
+create_experiment =  "#{curl_data :POST} #{root_url}/experiments.json "
+create_experiment << "-d '{\"user\": {\"email\": \"#{email}\", \"password\": \"#{password}\"}, "
+create_experiment << "\"experiment\": {\"title\": \"#{title}\", \"model\": \"#{model}\", "
+create_experiment << "\"date\": \"#{date}\", \"contact\": \"#{contact}\", \"email\": \"#{email}\", "
+create_experiment << "\"comment\": \"#{comment}\", \"component_versions\": \"#{component_versions}\", "
+create_experiment << "\"component_resolutions\": \"#{component_resolutions}\"}}'"
+experiment = JSON.parse `#{create_experiment}`
+experiment_id = experiment['id']
+p "[Notice]: Experiment (id: #{experiment_id}) has been created."
+
+# Create CLIMO diagnostics
+category = 'climo'
+comment  = 'This climo diagnostics is produced by NCAR AMWG package.'
+create_diag =  "#{curl_data :POST} #{root_url}/experiments/#{experiment_id}/diags.json "
+create_diag << "-d '{\"user\": {\"email\": \"#{email}\", \"password\": \"#{password}\"}, "
+create_diag << "\"experiment_id\": \"#{experiment_id}\", \"diag\": {\"category\": \"#{category}\", "
+create_diag << "\"contact\": \"#{contact}\", \"email\": \"#{email}\", \"comment\": \"#{comment}\"}}'"
+climo_diag = JSON.parse(`#{create_diag}`)
+climo_diag_id = climo_diag['id']
+p "[Notice]: CLIMO diagnostics (id: #{climo_diag_id}) has been created."
+
+# experiment_id = 15
+# climo_diag_id = 13
+
+# Upload NCAR AMWG climo figures
+figure_root = "/Users/dongli/bcc-rad/figures/test_original"
+Dir.glob("#{figure_root}/*.pdf").sort.each do |figure|
+  print "[Notice]: Uploading figure \"#{figure}\" ...\n"
+  title = File.basename(figure, '.pdf')
+  comment = ''
+  create_figure =  "#{curl_form :POST} #{root_url}/diags/#{climo_diag_id}/figures.json "
+  create_figure << "-F 'email=#{email}' -F 'password=#{password}' "
+  create_figure << "-F 'title=#{title}' -F 'file=@#{figure}' "
+  create_figure << "-F 'comment=#{comment}'"
+  `#{create_figure}`
+end

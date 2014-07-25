@@ -5,6 +5,7 @@
         <thead>
           <tr>
             <th width="200">Title</th>
+            <th width="200">Date</th>
             <th width="200">Model</th>
             <th width="400">Comment</th>
             <th width="200">Contact</th>
@@ -14,6 +15,7 @@
           <% @experiments.each do |e| %>
             <tr>
               <td><%= link_to "#{e.title}", experiment_path(e) %></td>
+              <td><%= e.date %></td>
               <td><%= link_to get_model(e.model_id).title, model_path(e.model_id) %></td>
               <td><%= e.comment %></td>
               <td><a href="mailto:<%= e.email %>"><%= e.contact %></a></td>
@@ -21,15 +23,15 @@
           <% end %>
         </tbody>
       </table>
-    <% if can? :create, Experiment %>
-      <p>
-        <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Create an new experiment.">
-          <a href="<%= new_experiment_path %>", class="button radius">
-            <i class="fa fa-plus-square"></i>
-          </a>
-        </span>
-      </p>
-    <% end %>
+      <% if can? :create, Experiment %>
+        <p>
+          <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Create an new experiment.">
+            <a href="<%= new_experiment_path %>", class="button radius">
+              <i class="fa fa-plus-square"></i>
+            </a>
+          </span>
+        </p>
+      <% end %>
     </div>
   </div>
 </div>

@@ -79,9 +79,11 @@
         <ul class="small-block-grid-1 medium-block-grid-3">
           <% @experiment.diags.each do |d| %>
             <li>
-              <div class="panel diag">
-                <%= link_to "#{d.category.upcase}", diag_path(d) %>
-              </div>
+              <a href="<%= diag_path(d) %>">
+                <div class="panel diag">
+                  <%= d.category.upcase %>
+                </div>
+              </a>
             </li>
           <% end %>
         </ul>

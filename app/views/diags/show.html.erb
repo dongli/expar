@@ -54,8 +54,10 @@
           <% @diag.figures.each do |f| %>
             <li>
               <div class="panel">
-                <%= link_to f.title, figure_path(f) %><br>
-                <%= image_tag f.file.url(:small) %>
+                <%= f.title %><br>
+                <a href="<%= figure_path(f) %>">
+                  <%= image_tag f.file.url(:small) %>
+                </a>
               </div>
             </li>
           <% end %>

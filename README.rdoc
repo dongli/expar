@@ -1,28 +1,12 @@
-== README
+Introduction
+============
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The experiment archive is designed to store climate model simulation results so
+that the experiments can be inquired later by other reseachers easily. Several
+diagnostics (e.g. CLIMO and MJO) can be attached to the experiment, and the
+figures can be uploaded. It is a Ruby on Rails (RoR) web application.
 
-Things you may want to cover:
+Author
+======
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+- Li Dong <dongli@lasg.iap.ac.cn>

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get 'dashboard/admin'
 
   root 'main#index'
+  mount API::Base => '/api'
+
+  match '/tools' => redirect('/tools'), via: :get
 
   resources :users
   get 'users/:id/change_password', to: 'users#change_password', as: 'change_password'

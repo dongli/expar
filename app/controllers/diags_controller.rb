@@ -1,6 +1,5 @@
 class DiagsController < ApplicationController
-  before_filter except: [ :index, :show ] { authenticate_user(params) }
-  respond_to :html, :json
+  before_filter :authenticate_user!, except: [ :index, :show ]
 
   def index
     @diags = Diag.all
@@ -11,15 +10,6 @@ class DiagsController < ApplicationController
   end
 
   def create
-    if params[:format] == 'json'
-      # Replace category name with category id.
-      Diag.categories.each do |category_name, category_id|
-        if params[:diag][:category].downcase == category_name
-          params[:diag][:category] = category_id
-          break
-        end
-      end
-    end
     @diag = Diag.new(diag_params)
     @diag.created_by_user = current_user.id
     @diag.figures = []
@@ -27,16 +17,9 @@ class DiagsController < ApplicationController
     @experiment.diags.push @diag
 
     if @diag.save
-      if params[:format] == 'json'
-        respond_with @diag
-      else
-        redirect_to @experiment
-      end
+      redirect_to @experiment
     else
-      if params[:format] == 'json'
-      else
-        render 'new'
-      end
+      render 'new'
     end
   end
 

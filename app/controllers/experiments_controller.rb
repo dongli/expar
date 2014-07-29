@@ -1,10 +1,8 @@
 class ExperimentsController < ApplicationController
-  before_filter except: [ :index, :show ] { authenticate_user(params) }
-  respond_to :html, :json
+  before_filter :authenticate_user!, except: [ :index, :show ]
 
   def index
     @experiments = Experiment.all
-    respond_with @experiments
   end
 
   def new
@@ -12,37 +10,19 @@ class ExperimentsController < ApplicationController
   end
 
   def create
-    if params[:format] == 'json'
-      # Replace model name (String) in params with model id and object.
-      Model.all.each do |m|
-        if params[:experiment][:model] == m.title
-          params[:experiment][:model_id] = m.id
-          params[:experiment][:model] = m
-          break
-        end
-      end
-    end
     @experiment = Experiment.new(experiment_params)
     @experiment.created_by_user = current_user.id
     @experiment.diags = []
 
     if @experiment.save
-      if params[:format] == 'json'
-        respond_with @experiment
-      else
-        redirect_to @experiment
-      end
+      redirect_to @experiment
     else
-      if params[:format] == 'json'
-      else
-        render 'new'
-      end
+      render 'new'
     end
   end
 
   def show
     @experiment = Experiment.find(params[:id])
-    respond_with @experiment
   end
 
   def edit

@@ -12,9 +12,11 @@
 require 'highline/import'
 require 'json'
 
-password = ask('Enter password: ') { |q| q.echo = '*' }
+user_email = ask('Enter email: ')
+user_password = ask('Enter password: ') { |q| q.echo = '*' }
 
 root_url              = 'http://gamil.lasg.ac.cn:3000'
+api_version           = 'api/v1'
 email                 = 'dongli@lasg.iap.ac.cn'
 title                 = 'BCC-RAD test'
 model                 = 'GAMIL-CLM'
@@ -28,19 +30,13 @@ figure_root           = "/Users/dongli/bcc-rad/figures/test_bcc_rad_fix_rei"
 # experiment_id         = 16
 # climo_diag_id         = 14
 
-def curl_data(action)
-  "curl -s -X #{action} -H 'Content-Type: application/json'"
-end
-
-def curl_form(action)
-  "curl -s -X #{action} -H 'Content-Type: multipart/form-data'"
-end
+curl_data = "curl -s -H 'Content-Type: application/json' -u '#{user_email}:#{user_password}'"
+curl_form = "curl -s -H 'Content-Type: multipart/form-data' -u '#{user_email}:#{user_password}'"
 
 # Create an experiment
 if not defined? experiment_id
-  create_experiment =  "#{curl_data :POST} #{root_url}/experiments.json "
-  create_experiment << "-d '{\"user\": {\"email\": \"#{email}\", \"password\": \"#{password}\"}, "
-  create_experiment << "\"experiment\": {\"title\": \"#{title}\", \"model\": \"#{model}\", "
+  create_experiment =  "#{curl_data} #{root_url}/#{api_version}/create_experiment "
+  create_experiment << "-d '{\"experiment\": {\"title\": \"#{title}\", \"model\": \"#{model}\", "
   create_experiment << "\"date\": \"#{date}\", \"contact\": \"#{contact}\", \"email\": \"#{email}\", "
   create_experiment << "\"comment\": \"#{comment}\", \"component_versions\": \"#{component_versions}\", "
   create_experiment << "\"component_resolutions\": \"#{component_resolutions}\"}}'"
@@ -53,9 +49,8 @@ end
 if not defined? climo_diag_id
   category = 'climo'
   comment  = 'This climo diagnostics is produced by NCAR AMWG package.'
-  create_diag =  "#{curl_data :POST} #{root_url}/experiments/#{experiment_id}/diags.json "
-  create_diag << "-d '{\"user\": {\"email\": \"#{email}\", \"password\": \"#{password}\"}, "
-  create_diag << "\"experiment_id\": \"#{experiment_id}\", \"diag\": {\"category\": \"#{category}\", "
+  create_diag =  "#{curl_data} #{root_url}/#{api_version}/create_diag "
+  create_diag << "-d '{\"diag\": {\"experiment_id\": \"#{experiment_id}\", \"category\": \"#{category}\", "
   create_diag << "\"contact\": \"#{contact}\", \"email\": \"#{email}\", \"comment\": \"#{comment}\"}}'"
   climo_diag = JSON.parse(`#{create_diag}`)
   climo_diag_id = climo_diag['id']
@@ -67,9 +62,8 @@ Dir.glob("#{figure_root}/*.pdf").sort.each do |figure|
   print "[Notice]: Uploading figure \"#{figure}\" ...\n"
   title = File.basename(figure, '.pdf')
   comment = ''
-  create_figure =  "#{curl_form :POST} #{root_url}/diags/#{climo_diag_id}/figures.json "
-  create_figure << "-F 'email=#{email}' -F 'password=#{password}' "
-  create_figure << "-F 'title=#{title}' -F 'file=@#{figure}' "
-  create_figure << "-F 'comment=#{comment}'"
+  create_figure =  "#{curl_form} #{root_url}/#{api_version}/create_figure "
+  create_figure << "-F 'diag_id=#{climo_diag_id}' "
+  create_figure << "-F 'title=#{title}' -F 'file=@#{figure}' -F 'comment=#{comment}'"
   `#{create_figure}`
 end

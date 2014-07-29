@@ -1,6 +1,5 @@
 class FiguresController < ApplicationController
-  before_filter except: [ :index, :show ] { authenticate_user(params) }
-  respond_to :html, :json
+  before_filter :authenticate_user!, except: [ :index, :show ]
 
   def index
     @figures = Figure.all
@@ -11,32 +10,15 @@ class FiguresController < ApplicationController
   end
 
   def create
-    if params[:format] == 'json'
-      params[:diag_id]          = params[:diag_id].to_i
-      params[:figure]           = {}
-      params[:figure][:diag_id] = params[:diag_id]
-      params[:figure][:title]   = params[:title]
-      params[:figure][:file]    = params[:file]
-      params[:figure][:comment] = params[:comment]
-      params[:figure][:file].content_type = MIME::Types.type_for(params[:figure][:file].original_filename)[0].content_type
-    end
     @figure = Figure.new(figure_params)
     @figure.created_by_user = current_user.id
     @diag = Diag.find(params[:diag_id])
     @diag.figures.push @figure
 
     if @figure.save
-      if params[:format] == 'json'
-        respond_with @figure
-      else
-        redirect_to diag_path(@diag)
-      end
+      redirect_to diag_path(@diag)
     else
-      if params[:format] == 'json'
-        respond_with @figure
-      else
-        render 'new'
-      end
+      render 'new'
     end
   end
 

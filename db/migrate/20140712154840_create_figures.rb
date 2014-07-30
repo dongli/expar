@@ -1,7 +1,8 @@
 class CreateFigures < ActiveRecord::Migration
   def change
-    create_table :figures do |t|
-      t.belongs_to :diag
+    enable_extension 'uuid-ossp'
+    create_table :figures, id: :uuid do |t|
+      t.uuid :diag_id
       t.string :title
       t.attachment :file
       t.text :comment

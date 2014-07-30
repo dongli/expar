@@ -1,7 +1,8 @@
 class CreateExperiments < ActiveRecord::Migration
   def change
-    create_table :experiments do |t|
-      t.belongs_to :model
+    enable_extension 'uuid-ossp'
+    create_table :experiments, id: :uuid do |t|
+      t.uuid :model_id
       t.string :title
       t.string :component_versions
       t.string :component_resolutions

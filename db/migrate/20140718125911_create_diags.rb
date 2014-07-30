@@ -1,7 +1,8 @@
 class CreateDiags < ActiveRecord::Migration
   def change
-    create_table :diags do |t|
-      t.belongs_to :experiment
+    enable_extension 'uuid-ossp'
+    create_table :diags, id: :uuid do |t|
+      t.uuid :experiment_id
       t.integer :category
       t.string :contact
       t.string :email

@@ -1,6 +1,7 @@
 class CreateModels < ActiveRecord::Migration
   def change
-    create_table :models do |t|
+    enable_extension 'uuid-ossp'
+    create_table :models, id: :uuid do |t|
       t.string :title
       t.string :contact
       t.string :email

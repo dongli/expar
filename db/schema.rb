@@ -13,7 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20140720093339) do
 
-  create_table "components", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "components", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "title"
     t.integer  "role"
     t.string   "versions"
@@ -28,12 +32,12 @@ ActiveRecord::Schema.define(version: 20140720093339) do
   end
 
   create_table "components_models", id: false, force: true do |t|
-    t.integer "component_id", null: false
-    t.integer "model_id",     null: false
+    t.uuid "component_id"
+    t.uuid "model_id"
   end
 
-  create_table "diags", force: true do |t|
-    t.integer  "experiment_id"
+  create_table "diags", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "experiment_id"
     t.integer  "category"
     t.string   "contact"
     t.string   "email"
@@ -43,8 +47,8 @@ ActiveRecord::Schema.define(version: 20140720093339) do
     t.datetime "updated_at"
   end
 
-  create_table "experiments", force: true do |t|
-    t.integer  "model_id"
+  create_table "experiments", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "model_id"
     t.string   "title"
     t.string   "component_versions"
     t.string   "component_resolutions"
@@ -57,8 +61,8 @@ ActiveRecord::Schema.define(version: 20140720093339) do
     t.datetime "updated_at"
   end
 
-  create_table "figures", force: true do |t|
-    t.integer  "diag_id"
+  create_table "figures", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "diag_id"
     t.string   "title"
     t.string   "file_file_name"
     t.string   "file_content_type"
@@ -70,7 +74,7 @@ ActiveRecord::Schema.define(version: 20140720093339) do
     t.datetime "updated_at"
   end
 
-  create_table "models", force: true do |t|
+  create_table "models", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "title"
     t.string   "contact"
     t.string   "email"
@@ -98,7 +102,7 @@ ActiveRecord::Schema.define(version: 20140720093339) do
     t.integer  "role"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

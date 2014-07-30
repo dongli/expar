@@ -1,6 +1,7 @@
 class CreateComponents < ActiveRecord::Migration
   def change
-    create_table :components do |t|
+    enable_extension 'uuid-ossp'
+    create_table :components, id: :uuid do |t|
       t.string :title
       t.integer :role
       t.string :versions

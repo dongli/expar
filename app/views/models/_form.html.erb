@@ -1,123 +1,119 @@
 <div class="row">
   <div class="small-12 small-centered columns">
-    <div class="row collapse">
-      <div class="small-12 small-offset-3 columns">
-        <h1>
-          <% if @model.id == nil %>
-            Create an model
-          <% else %>
-            Update the model
-          <% end %>
-        </h1>
-      </div>
-    </div>
     <div class="panel">
-      <h3>Basic information</h3>
-      <%= form_for @model do |f| %>
-        <% if @model.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@model.errors.count, "error") %>
-              prohibited this model from being saved:</h2>
-            <ul>
-              <% @model.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
+      <h1>
+        <% if @model.id == nil %>
+          Create an model
+        <% else %>
+          Update the model
         <% end %>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns">
-            <%= f.label :title, class: "right inline" %>
-          </div>
-          <div class="small-9 medium-9 columns">
-            <%= f.text_field :title, placeholder: "Model title without version number." %>
-          </div>
-        </div>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns">
-            <%= f.label :contact, class: "right inline" %>
-          </div>
-          <div class="small-9 medium-9 columns">
-            <% if @model.new_record? %>
-              <%= f.text_field :contact, value: current_user.name %>
-            <% else %>
-              <%= f.text_field :contact, placeholder: "Who is responsible for this model?" %>
-            <% end %>
-          </div>
-        </div>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns">
-            <%= f.label :email, class: "right inline" %>
-          </div>
-          <div class="small-9 medium-9 columns">
-            <% if @model.new_record? %>
-              <%= f.text_field :email, value: "#{current_user.email}" %>
-            <% else %>
-              <%= f.text_field :email, placeholder: "Contacter's email." %>
-            <% end %>
-          </div>
-        </div>
-        <div class="row collapse">
-          <div class="small-1 medium-3 columns"><%= f.label :comment, class: "right inline" %></div>
-          <div class="small-9 medium-9 columns"><%= f.text_area :comment, placeholder: "Any word about the model." %></div>
-        </div>
-      </div>
+      </h1>
       <div class="panel">
-        <h3>Components</h3>
-        <ul class="small-block-grid-1 medium-block-grid-2">
-          <% atmosphere_components = get_all_atmosphere_components %>
-          <% if not atmosphere_components.empty? %>
-            <li>
-              <div class="panel">
-                <h3>Atmosphere</h3>
-                <ul class="checkbox-list">
-                  <% get_all_atmosphere_components.each do |c| %>
-                    <li>
-                      <%= check_box_tag "model[component_ids][]", c.id, model_contains_component?(c) %>
-                      <%= c.title %>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </li>
-          <% end %>
-          <% land_components = get_all_land_components %>
-          <% if not land_components.empty? %>
-            <li>
-              <div class="panel">
-                <h3>Land</h3>
-                <ul class="checkbox-list">
-                  <% land_components.each do |c| %>
-                    <li>
-                      <%= check_box_tag "model[component_ids][]", c.id, model_contains_component?(c) %>
-                      <%= c.title %>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            </li>
-          <% end %>
-          <% ocean_components = get_all_ocean_components %>
-          <% if not ocean_components.empty? %>
-            <div class="panel">
-              <h3>Ocean</h3>
-              <ul class="checkbox-list">
-                <% ocean_components.each do |c| %>
-                  <li>
-                    <%= check_box_tag "model[component_ids][]", c.id, model_contains_component?(c) %>
-                    <%= c.title %>
-                  </li>
+        <h3>Basic information</h3>
+        <%= form_for @model do |f| %>
+          <% if @model.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@model.errors.count, "error") %>
+                prohibited this model from being saved:</h2>
+              <ul>
+                <% @model.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
                 <% end %>
               </ul>
             </div>
           <% end %>
-        </ul>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :title, class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <%= f.text_field :title, placeholder: "Model title without version number." %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :contact, class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <% if @model.new_record? %>
+                <%= f.text_field :contact, value: current_user.name %>
+              <% else %>
+                <%= f.text_field :contact, placeholder: "Who is responsible for this model?" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns">
+              <%= f.label :email, class: "right inline" %>
+            </div>
+            <div class="small-9 medium-9 columns">
+              <% if @model.new_record? %>
+                <%= f.text_field :email, value: "#{current_user.email}" %>
+              <% else %>
+                <%= f.text_field :email, placeholder: "Contacter's email." %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row collapse">
+            <div class="small-1 medium-3 columns"><%= f.label :comment, class: "right inline" %></div>
+            <div class="small-9 medium-9 columns"><%= f.text_area :comment, placeholder: "Any word about the model." %></div>
+          </div>
+          <h3>Components</h3>
+          <ul class="small-block-grid-1 medium-block-grid-2">
+            <% atmosphere_components = get_all_atmosphere_components %>
+            <% if not atmosphere_components.empty? %>
+              <li>
+                <div class="panel">
+                  <h3>Atmosphere</h3>
+                  <ul class="checkbox-list">
+                    <% get_all_atmosphere_components.each do |c| %>
+                      <li>
+                        <%= check_box_tag "model[component_ids][]", c.id, model_contains_component?(c) %>
+                        <%= c.title %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </li>
+            <% end %>
+            <% land_components = get_all_land_components %>
+            <% if not land_components.empty? %>
+              <li>
+                <div class="panel">
+                  <h3>Land</h3>
+                  <ul class="checkbox-list">
+                    <% land_components.each do |c| %>
+                      <li>
+                        <%= check_box_tag "model[component_ids][]", c.id, model_contains_component?(c) %>
+                        <%= c.title %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </li>
+            <% end %>
+            <% ocean_components = get_all_ocean_components %>
+            <% if not ocean_components.empty? %>
+              <div class="panel">
+                <h3>Ocean</h3>
+                <ul class="checkbox-list">
+                  <% ocean_components.each do |c| %>
+                    <li>
+                      <%= check_box_tag "model[component_ids][]", c.id, model_contains_component?(c) %>
+                      <%= c.title %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </ul>
+          <p>
+            <button type="submit" class="button radius">
+              <%= fa_icon "save" %>
+            </button>
+          </p>
+        <% end %>
       </div>
-      <p>
-        <button type="submit" class="button radius">
-          <%= fa_icon "save" %>
-        </button>
-      <% end %>
-    </p>
+    </div>
   </div>
 </div>

@@ -14,22 +14,18 @@ require 'json'
 
 user_email = ask('Enter email: ')
 user_password = ask('Enter password: ') { |q| q.echo = '*' }
+title = ask('Enter experiment title: ')
+model = ask('Enter model title: ')
+component_versions = ask('Enter model component versions (e.g. GAMIL:2,CLM:2): ')
+component_resolutions = ask('Enter model component resolutions (e.g. GAMIL:128x60_26,...): ')
+date = ask('Enter experiment initiating date: ')
+contact = ask('Enter contact name (first last): ')
+email = ask('Enter contact email: ')
+figure_root = ask('Enter figure root: ')
+comment = 'Please comment this experiment.'
 
 root_url              = 'http://gamil.lasg.ac.cn:3000'
 api_version           = 'api/v1'
-email                 = 'dongli@lasg.iap.ac.cn'
-title                 = 'BCC-RAD test'
-model                 = 'GAMIL-CLM'
-component_versions    = 'GAMIL:2,CLM:2'
-component_resolutions = 'GAMIL:128x60_26,CLM:?'
-date                  = '2014-07-18'
-contact               = 'Li Dong'
-email                 = 'dongli@lasg.iap.ac.cn'
-comment               = 'This experiment is the same as \"BCC-RAD test with GAMIL rei\" except that the \"rei\" is recalculated in BCC-RAD with some modifications: (1) The freezing temperature is changed to 273.15K. (2) When T is above 273.15K, there is no ice condensate.'
-figure_root           = "/Users/dongli/bcc-rad/figures/test_bcc_rad_fix_rei"
-# experiment_id         = 16
-# climo_diag_id         = 14
-
 curl_data = "curl -s -H 'Content-Type: application/json' -u '#{user_email}:#{user_password}'"
 curl_form = "curl -s -H 'Content-Type: multipart/form-data' -u '#{user_email}:#{user_password}'"
 

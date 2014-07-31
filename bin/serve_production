@@ -1,4 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-bin/rake assets:precompile RAILS_ENV=production
-SECRET_KEY_BASE=$(rake secret) bin/rails s -e production
+require 'pathname'
+
+script = Pathname.new(__FILE__)
+ENV['APP_ROOT'] = File.dirname(File.dirname(script.realpath))
+ENV['RAILS_ENV'] = 'production'
+ENV['SECRET_KEY_BASE'] = `rake secret`
+
+print "[Notice]: Precompile assets (e.g. CSS) ...\n"
+system 'bin/rake assets:precompile'
+
+print "[Notice]: Start Unicorn to serve ...\n"
+system 'unicorn_rails -c config/unicorn.rb'

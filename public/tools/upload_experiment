@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+#
 # Description:
 #
 # This script is used to create an experiment, and upload the climatology
@@ -12,24 +12,29 @@
 require 'highline/import'
 require 'json'
 
-user_email = ask('Enter email: ')
-user_password = ask('Enter password: ') { |q| q.echo = '*' }
-title = ask('Enter experiment title: ')
-model = ask('Enter model title: ')
-component_versions = ask('Enter model component versions (e.g. GAMIL:2,CLM:2): ')
+# Ask user for necessary information.
+user_email            = ask('Enter email for authentication: ')
+user_password         = ask('Enter password: ') { |q| q.echo = '*' }
+title                 = ask('Enter experiment title: ')
+model                 = ask('Enter model title: ')
+component_versions    = ask('Enter model component versions (e.g. GAMIL:2,CLM:2): ')
 component_resolutions = ask('Enter model component resolutions (e.g. GAMIL:128x60_26,...): ')
-date = ask('Enter experiment initiating date: ')
-contact = ask('Enter contact name (first last): ')
-email = ask('Enter contact email: ')
-figure_root = ask('Enter figure root: ')
-comment = 'Please comment this experiment.'
+date                  = ask('Enter experiment initiating date: ')
+contact               = ask('Enter contact name (first last): ')
+email                 = ask('Enter contact email: ')
+figure_root           = ask('Enter figure root: ')
 
+# User should fill in the comment on the webpage manually.
+comment               = 'Please comment this experiment.'
+
+# Internal variables
+# TODO: root_url and api_version should be set outside.
 root_url              = 'http://gamil.lasg.ac.cn:3000'
 api_version           = 'api/v1'
 curl_data = "curl -s -H 'Content-Type: application/json' -u '#{user_email}:#{user_password}'"
 curl_form = "curl -s -H 'Content-Type: multipart/form-data' -u '#{user_email}:#{user_password}'"
 
-# Create an experiment
+# Create an experiment.
 if not defined? experiment_id
   create_experiment =  "#{curl_data} #{root_url}/#{api_version}/create_experiment "
   create_experiment << "-d '{\"experiment\": {\"title\": \"#{title}\", \"model\": \"#{model}\", "
@@ -41,7 +46,7 @@ if not defined? experiment_id
   print "[Notice]: Experiment (id: #{experiment_id}) has been created.\n"
 end
 
-# Create CLIMO diagnostics
+# Create CLIMO diagnostics.
 if not defined? climo_diag_id
   category = 'climo'
   comment  = 'This climo diagnostics is produced by NCAR AMWG package.'
@@ -53,7 +58,7 @@ if not defined? climo_diag_id
   print "[Notice]: CLIMO diagnostics (id: #{climo_diag_id}) has been created.\n"
 end
 
-# Upload NCAR AMWG climo figures
+# Upload NCAR AMWG climo figures.
 Dir.glob("#{figure_root}/*.pdf").sort.each do |figure|
   print "[Notice]: Uploading figure \"#{figure}\" ...\n"
   title = File.basename(figure, '.pdf')

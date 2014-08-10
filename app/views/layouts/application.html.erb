@@ -84,7 +84,22 @@
         </nav>
       </div>
       <div class="wrapper">
-        <%= yield %>
+        <!--<% if user_signed_in? %>
+        <div class="row">
+          <div class="small-4 columns">
+            <div class="panel">
+              <span data-tooltip data-options="disable_for_touch:true" class="has-tip" title="Inspect tools.">
+                <h3><%= fa_icon 'wrench' %></h3>
+              </span>
+            </div>
+          </div>
+          <div class="small-8 columns">
+          <% end %>-->
+            <%= yield %>
+          <!--<% if user_signed_in? %>
+          </div>
+          <% end %>-->
+        </div>
       </div>
       <div class="footer">
         Hand made by Li Dong 2014. All rights reserved.

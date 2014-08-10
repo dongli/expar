@@ -1,5 +1,5 @@
 worker_processes Integer(ENV['WEB_CONCURRENCY'] || 3)
-timeout 30
+timeout 300
 
 working_directory "#{ENV['APP_ROOT']}"
 

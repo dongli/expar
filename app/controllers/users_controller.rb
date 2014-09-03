@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_filter except: [ :index, :show ] { authenticate_user(params) }
-  respond_to :html, :json
+  before_filter :authenticate_user!, :except => [:index, :show]
 
   def index
     @users = User.all

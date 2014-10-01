@@ -1,15 +1,17 @@
 <div class="row">
   <div class="small-6 small-centered columns">
-    <p>
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
-        <%= f.text_field :first_name, placeholder: 'First name', autofocus: true %>
-        <%= f.text_field :last_name, placeholder: 'Last name' %>
-        <%= f.text_field :email, placeholder: 'Email' %>
-        <%= f.password_field :password, placeholder: 'Password', autocomplete: "off"  %>
-        <%= f.password_field :password_confirmation, placeholder: 'Confirm password', autocomplete: "off"  %>
-        <%= f.submit "Register for making contribution", class: "button radius" %>
-      <% end %>
-    </p>
+    <div class="panel">
+      <p>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+          <%= f.text_field :first_name, placeholder: 'First name', autofocus: true %>
+          <%= f.text_field :last_name, placeholder: 'Last name' %>
+          <%= f.text_field :email, placeholder: 'Email' %>
+          <%= f.password_field :password, placeholder: 'Password', autocomplete: "off"  %>
+          <%= f.password_field :password_confirmation, placeholder: 'Confirm password', autocomplete: "off"  %>
+          <%= f.submit "Register for making contribution", class: "button radius" %>
+        <% end %>
+      </p>
+    </div>
   </div>
 </div>
